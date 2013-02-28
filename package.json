@@ -10,7 +10,11 @@
   "bugs": {
     "url": "http://github.com/jaredhanson/kerouac/issues"
   },
-  "author": { "name": "Jared Hanson", "email": "jaredhanson@gmail.com", "url": "http://www.jaredhanson.net/" },
+  "author": {
+    "name": "Jared Hanson",
+    "email": "jaredhanson@gmail.com",
+    "url": "http://www.jaredhanson.net/"
+  },
   "licenses": [ {
     "type": "MIT",
     "url": "http://www.opensource.org/licenses/MIT" 
@@ -30,10 +34,10 @@
   },
   "devDependencies": {
     "mocha": "1.x.x",
-    "should": "1.x.x"
+    "chai": "1.x.x"
   },
   "scripts": {
-    "test": "NODE_PATH=lib node_modules/.bin/mocha"
+    "test": "NODE_PATH=./lib node_modules/.bin/mocha --reporter spec --require test/node/bootstrap test/*.test.js"
   },
   "engines": { "node": ">= 0.6.0" }
 }
