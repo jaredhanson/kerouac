@@ -16,7 +16,7 @@ A static site generator.  More details soon.
     $ npm install
     $ make test
 
-[![Build Status](https://secure.travis-ci.org/jaredhanson/kerouac.png)](http://travis-ci.org/jaredhanson/kerouac)
+[![Build Status](https://secure.travis-ci.org/jaredhanson/kerouac.png)](http://travis-ci.org/jaredhanson/kerouac)  [![David DM](https://david-dm.org/jaredhanson/kerouac.png)](http://david-dm.org/jaredhanson/kerouac)
 
 ## Credits
 
