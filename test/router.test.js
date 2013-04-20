@@ -59,4 +59,79 @@ describe('Router', function() {
     
   });
   
+  describe('with route containing multiple callbacks', function() {
+    
+    var router = new Router();
+    
+    router.route('/foo',
+      function(page, next) {
+        page.routedTo = [ '1' ];
+        next();
+      },
+      function(page, next) {
+        page.routedTo.push('2');
+        next();
+      },
+      function(page, next) {
+        page.routedTo.push('3');
+        next();
+      });
+    
+    it('should dispatch /foo', function(done) {
+      var page = {};
+      page.path = '/foo'
+      
+      router.middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.routedTo).to.be.an.instanceOf(Array);
+        expect(page.routedTo).to.have.length(3);
+        expect(page.routedTo[0]).to.equal('1');
+        expect(page.routedTo[1]).to.equal('2');
+        expect(page.routedTo[2]).to.equal('3');
+        done();
+      })
+    });
+    
+  });
+  
+  describe('with route containing multiple callbacks some of which are skipped', function() {
+    
+    var router = new Router();
+    
+    router.route('/foo',
+      function(page, next) {
+        page.routedTo = [ 'a1' ];
+        next();
+      },
+      function(page, next) {
+        page.routedTo.push('a2');
+        next('route');
+      },
+      function(page, next) {
+        page.routedTo.push('a3');
+        next();
+      });
+      
+    router.route('/foo', function(page, next) {
+      page.routedTo.push('b1');
+      next();
+    });
+    
+    it('should dispatch /foo', function(done) {
+      var page = {};
+      page.path = '/foo'
+      
+      router.middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.routedTo).to.be.an.instanceOf(Array);
+        expect(page.routedTo).to.have.length(3);
+        expect(page.routedTo[0]).to.equal('a1');
+        expect(page.routedTo[1]).to.equal('a2');
+        expect(page.routedTo[2]).to.equal('b1');
+        done();
+      })
+    });
+    
+  });
+  
 });
