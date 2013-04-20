@@ -134,6 +134,84 @@ describe('Router', function() {
     
   });
   
+  describe('with route that is parameterized', function() {
+    
+    var router = new Router();
+    
+    router.route('/blog/:year/:month/:day/:slug', function(page, next) {
+      page.gotParams = [];
+      page.gotParams.push(page.params['year']);
+      page.gotParams.push(page.params['month']);
+      page.gotParams.push(page.params['day']);
+      page.gotParams.push(page.params['slug']);
+      next();
+    });
+    
+    router.route('/blog/2013/04/20/foo', function(page, next) {
+      page.blogPage = true;
+      next();
+    });
+    
+    it('should dispatch /blog', function(done) {
+      var page = {};
+      page.path = '/blog/2013/04/20/foo'
+      
+      router.middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.gotParams).to.have.length(4);
+        expect(page.gotParams[0]).to.equal('2013');
+        expect(page.gotParams[1]).to.equal('04');
+        expect(page.gotParams[2]).to.equal('20');
+        expect(page.gotParams[3]).to.equal('foo');
+        expect(page.blogPage).to.be.true;
+        done();
+      })
+    });
+    
+  });
+  
+  describe('with route that encounters an error', function() {
+    
+    var router = new Router();
+    
+    router.route('/foo', function(page, next) {
+      next(new Error('something went wrong'));
+    });
+    
+    it('should dispatch /foo', function(done) {
+      var page = {};
+      page.path = '/foo'
+      
+      router.middleware(page, function(err) {
+        expect(err).to.not.be.undefined;
+        expect(err.message).to.equal('something went wrong');
+        done();
+      })
+    });
+    
+  });
+  
+  describe('with route that throws an exception', function() {
+    
+    var router = new Router();
+    
+    router.route('/foo', function(page, next) {
+      throw new Error('something went horribly wrong');
+    });
+    
+    it('should dispatch /foo', function(done) {
+      var page = {};
+      page.path = '/foo'
+      
+      router.middleware(page, function(err) {
+        expect(err).to.not.be.undefined;
+        expect(err.message).to.equal('something went horribly wrong');
+        done();
+      })
+    });
+    
+  });
+  
   describe('with route containing error handling that is not called', function() {
     
     var router = new Router();
