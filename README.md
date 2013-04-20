@@ -5,9 +5,10 @@
 >
 > -- Jack Kerouac
 
-Kerouac is a static site generator.  It is the simplest possible tool for
-transforming content written using lightweight markup, such as [Markdown](http://daringfireball.net/projects/markdown/),
-into a complete website.
+Kerouac is a static site generator written in [Node.js](http://nodejs.org/).  It
+is the simplest possible tool for transforming content written using lightweight
+markup, such as [Markdown](http://daringfireball.net/projects/markdown/), into a
+complete website.
 
 For highly-customized sites, Kerouac is also a powerful framework inspired by [Express](http://expressjs.com/).
 Each page in the generated website is declared as a route, which can take
@@ -24,7 +25,6 @@ been building a hybrid static and dynamic site been so consistent.
     var site = kerouac();
 
     site.set('base url', 'http://www.example.com/');
-
     site.content('content');
     site.static('public');
     
@@ -35,6 +35,14 @@ been building a hybrid static and dynamic site been so consistent.
         return;
       }
     });
+
+## Examples
+
+The following sites are built with Kerouac, and have public code repositories
+that illustrate how to develop using Kerouac's API.
+
+- [Locomotive](http://locomotivejs.org/) — ([source](https://github.com/jaredhanson/www.locomotivejs.org))
+- [Passport](http://passportjs.org/) — ([source](https://github.com/jaredhanson/www.passportjs.org))
 
 ## Tests
 
