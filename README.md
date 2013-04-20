@@ -18,6 +18,24 @@ been building a hybrid static and dynamic site been so consistent.
 
     $ npm install kerouac
 
+## Usage
+
+    var kerouac = require('kerouac');
+    var site = kerouac();
+
+    site.set('base url', 'http://www.example.com/');
+
+    site.content('content');
+    site.static('public');
+    
+    site.generate(function(err) {
+      if (err) {
+        console.error(err.message);
+        console.error(err.stack);
+        return;
+      }
+    });
+
 ## Tests
 
     $ npm install
