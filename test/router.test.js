@@ -134,4 +134,107 @@ describe('Router', function() {
     
   });
   
+  describe('with route containing error handling that is not called', function() {
+    
+    var router = new Router();
+    
+    router.route('/foo',
+      function(page, next) {
+        page.routedTo = [ '1' ];
+        next();
+      },
+      function(page, next) {
+        page.routedTo.push('2');
+        next();
+      },
+      function(err, page, next) {
+        page.routedTo.push('error');
+        next();
+      });
+    
+    it('should dispatch /foo', function(done) {
+      var page = {};
+      page.path = '/foo'
+      
+      router.middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.routedTo).to.be.an.instanceOf(Array);
+        expect(page.routedTo).to.have.length(2);
+        expect(page.routedTo[0]).to.equal('1');
+        expect(page.routedTo[1]).to.equal('2');
+        done();
+      })
+    });
+    
+  });
+  
+  describe('with route containing error handling that is called', function() {
+    
+    var router = new Router();
+    
+    router.route('/foo',
+      function(page, next) {
+        page.routedTo = [ '1' ];
+        next(new Error('1 error'));
+      },
+      function(page, next) {
+        page.routedTo.push('2');
+        next();
+      },
+      function(err, page, next) {
+        page.routedTo.push(err.message);
+        next();
+      });
+    
+    it('should dispatch /foo', function(done) {
+      var page = {};
+      page.path = '/foo'
+      
+      router.middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.routedTo).to.be.an.instanceOf(Array);
+        expect(page.routedTo).to.have.length(2);
+        expect(page.routedTo[0]).to.equal('1');
+        expect(page.routedTo[1]).to.equal('1 error');
+        done();
+      })
+    });
+    
+  });
+  
+  describe('with route containing error handling that is called due to an exception', function() {
+    
+    var router = new Router();
+    
+    router.route('/foo',
+      function(page, next) {
+        page.routedTo = [ '1' ];
+        wtf
+        next();
+      },
+      function(page, next) {
+        page.routedTo.push('2');
+        next();
+      },
+      function(err, page, next) {
+        page.routedTo.push(err.message);
+        next();
+      });
+    
+    it('should dispatch /foo', function(done) {
+      var page = {};
+      page.path = '/foo'
+      
+      router.middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.routedTo).to.be.an.instanceOf(Array);
+        expect(page.routedTo).to.have.length(2);
+        expect(page.routedTo[0]).to.equal('1');
+        expect(page.routedTo[1]).to.have.string('is not defined');
+        done();
+      })
+    });
+    
+  });
+  
 });
