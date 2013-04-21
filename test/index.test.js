@@ -38,6 +38,32 @@ describe('Kerouac', function() {
     });
   });
   
+  describe('engine registration', function() {
+    
+    describe('using a function', function() {
+      var site = kerouac();
+      site.engine('foo', function(path, options, cb) {
+      });
+    
+      it('should internally register foo engine', function() {
+        expect(site._engines['.foo'].renderFile).to.be.a('function')
+        expect(site._engines['.foo'].render).to.be.undefined
+      });
+    });
+    
+    describe('using a function and extension with leading dot', function() {
+      var site = kerouac();
+      site.engine('.bar', function(path, options, cb) {
+      });
+      
+      it('should internally register bar engine', function() {
+        expect(site._engines['.bar'].renderFile).to.be.a('function')
+        expect(site._engines['.bar'].render).to.be.undefined
+      });
+    });
+    
+  });
+  
   describe('front matter parser registration', function() {
     var site = kerouac();
     site.fm(function(data) {
