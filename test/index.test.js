@@ -38,4 +38,19 @@ describe('Kerouac', function() {
     });
   });
   
+  describe('front matter parser registration', function() {
+    var site = kerouac();
+    site.fm(function(data) {
+      if (data == 'foobar') { return { foo: 'bar' }; }
+      return undefined;
+    })
+    
+    it('should parse using registered parser', function() {
+      var foo = "foobar"
+      
+      var data = site.fm(foo);
+      expect(data.foo).to.equal('bar');
+    });
+  });
+  
 });
