@@ -26,7 +26,7 @@ been building a hybrid static and dynamic site been so consistent.
 
     site.set('base url', 'http://www.example.com/');
     site.content('content');
-    site.static('public');
+    site.assets('public');
     
     site.generate(function(err) {
       if (err) {
@@ -35,6 +35,49 @@ been building a hybrid static and dynamic site been so consistent.
         return;
       }
     });
+
+#### Content,  Layouts, and Assets
+
+A typical static site consists of a content written in Markdown, and layouts
+which structure the content into an HTML page.
+
+Kerouac will render all content within a directory:
+
+    site.content('content');
+
+By default, content is written using [Markdown](http://daringfireball.net/projects/markdown/)
+and contains a section known as "front matter" surrounded by three dashes
+(`---`).  Front matter contains metadata about the content, including which
+layout should be used when generating a web page.
+
+    ---
+    layout: 'main'
+    title: 'Welcome'
+    ---
+
+    # Hello
+
+    Welcome to my website!
+
+By default, layouts are located in a `layouts` directory and are rendered using
+[EJS](https://github.com/visionmedia/ejs).
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8" />
+        <title><%- title -%></title>
+      </head>
+      <body>
+        <%- content -%>
+      </body>
+    </html>
+
+Most web sites also contain assets including images, stylesheets, and scripts
+that don't need preprocessing.  Kerouac will copy all assets in a given
+directory when generating the site:
+
+    site.assets('public');
 
 ## Examples
 
