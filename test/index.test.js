@@ -13,6 +13,12 @@ describe('Kerouac', function() {
   describe('newly initialized site', function() {
     var site = kerouac();
     
+    it('should expose content and assets', function() {
+      expect(site.content).to.be.a('function');
+      expect(site.assets).to.be.a('function');
+      expect(site.assets).to.equal(site.static);
+    });
+    
     it('should have default settings', function() {
       expect(site.get('layout engine')).to.equal('ejs');
       expect(site.get('layouts')).to.equal(process.cwd() + '/layouts');
