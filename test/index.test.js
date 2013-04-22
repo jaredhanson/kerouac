@@ -36,6 +36,13 @@ describe('Kerouac', function() {
       var data = site.fm(unknown);
       expect(data).to.be.undefined;
     });
+    
+    it('should highlight syntax', function() {
+      var code = "function foo() {};"
+      
+      var out = site.highlight(code);
+      expect(out).to.equal('<span class=\"function\"><span class=\"keyword\">function</span> <span class=\"title\">foo</span><span class=\"params\">()</span> {</span>};');
+    });
   });
   
   describe('engine registration', function() {
@@ -117,6 +124,19 @@ describe('Kerouac', function() {
       
       var data = site.fm(foo);
       expect(data.foo).to.equal('bar');
+    });
+  });
+  
+  describe('syntax highlighting registration', function() {
+    var site = kerouac();
+    site.highlight(function(code, lang) {
+      return { code: code, lang: lang }
+    })
+    
+    it('should highlight using registered highlighter', function() {
+      var out = site.highlight('var foo;', 'javascript');
+      expect(out.code).to.equal('var foo;');
+      expect(out.lang).to.equal('javascript');
     });
   });
   
