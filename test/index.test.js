@@ -62,6 +62,47 @@ describe('Kerouac', function() {
       });
     });
     
+    describe('using a module', function() {
+      var site = kerouac();
+      var engine = {};
+      engine.renderFile = function(path, options, cb) {};
+      engine.render = function(path, options, cb) {};
+      
+      site.engine('foo', engine, { foo: 'bar' });
+    
+      it('should internally register foo engine', function() {
+        expect(site._engines['.foo'].renderFile).to.be.a('function')
+        expect(site._engines['.foo'].render).to.be.a('function')
+        expect(site._engines['.foo'].options['foo']).to.equal('bar')
+      });
+    });
+    
+    describe('using a module that exports __express', function() {
+      var site = kerouac();
+      var engine = {};
+      engine.__express = function(path, options, cb) {};
+      engine.render = function(path, options, cb) {};
+      
+      site.engine('foo', engine, { foo: 'bar' });
+    
+      it('should internally register foo engine', function() {
+        expect(site._engines['.foo'].renderFile).to.be.a('function')
+        expect(site._engines['.foo'].render).to.be.a('function')
+        expect(site._engines['.foo'].options['foo']).to.equal('bar')
+      });
+    });
+    
+    describe('using a non-engine module', function() {
+      var site = kerouac();
+      var engine = {};
+      
+      it('should not register foo engine', function() {
+        expect(function() {
+          site.engine('foo', engine, { foo: 'bar' });
+        }).to.throw(Error);
+      });
+    });
+    
   });
   
   describe('front matter parser registration', function() {
