@@ -38,16 +38,15 @@ been building a hybrid static and dynamic site been so consistent.
 
 #### Content,  Layouts, and Assets
 
-A typical static site consists of a content written in Markdown, and layouts
-which structure the content into an HTML page.
+A typical static site consists of a content written in [Markdown](http://daringfireball.net/projects/markdown/),
+and layouts which structure the content into an HTML page.
 
 Kerouac will render all content within a directory:
 
     site.content('content');
 
-By default, content is written using [Markdown](http://daringfireball.net/projects/markdown/)
-and contains a section known as "front matter" surrounded by three dashes
-(`---`).  Front matter contains metadata about the content, including which
+Content contains a section known as "front matter" surrounded by three dashes
+(`---`).  Front matter specifies metadata about the content, including which
 layout should be used when generating a web page.
 
     ---
@@ -59,8 +58,7 @@ layout should be used when generating a web page.
 
     Welcome to my website!
 
-By default, layouts are located in a `layouts` directory and are rendered using
-[EJS](https://github.com/visionmedia/ejs).
+Layouts are located in a `layouts` directory and are rendered using [EJS](https://github.com/visionmedia/ejs).
 
     <!DOCTYPE html>
     <html>
@@ -78,6 +76,10 @@ that don't need preprocessing.  Kerouac will copy all assets in a given
 directory when generating the site:
 
     site.assets('public');
+
+Note that markup and layout rendering is fully customizable.  Alternatives,
+such as [Textile](http://en.wikipedia.org/wiki/Textile_%28markup_language%29)
+and [Jade](http://jade-lang.com/), can be used to suit your preferences.
 
 ## Examples
 
