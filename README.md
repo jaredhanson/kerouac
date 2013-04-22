@@ -81,6 +81,17 @@ Note that markup and layout rendering is fully customizable.  Alternatives,
 such as [Textile](http://en.wikipedia.org/wiki/Textile_%28markup_language%29)
 and [Jade](http://jade-lang.com/), can be used to suit your preferences.
 
+#### Plugins
+
+Many websites contain sections, such as a sitemap or blog, which conform to an
+established set of conventions.  Kerouac supports plugins, which can be used to
+bundle up these sections into modules that can be reused accross multiple sites.
+
+For example, to generate a sitemap for your site, simply add the [kerouac-sitemap](https://github.com/jaredhanson/kerouac-sitemap)
+plugin:
+
+    site.plug(require('kerouac-sitemap')());
+
 ## Examples
 
 The following sites are built with Kerouac, and have public code repositories
