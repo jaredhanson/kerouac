@@ -13,6 +13,12 @@ describe('Kerouac', function() {
   describe('newly initialized site', function() {
     var site = kerouac();
     
+    it('should have default settings', function() {
+      expect(site.get('layout engine')).to.equal('ejs');
+      expect(site.get('layouts')).to.equal(process.cwd() + '/layouts');
+      expect(site.get('output')).to.equal(process.cwd() + '/output');
+    });
+    
     it('should parse YAML front matter', function() {
       var yaml = "layout: 'yaml'\n"
                + "title: 'Hello YAML'\n";
@@ -43,6 +49,37 @@ describe('Kerouac', function() {
       var out = site.highlight(code);
       expect(out).to.equal('<span class=\"function\"><span class=\"keyword\">function</span> <span class=\"title\">foo</span><span class=\"params\">()</span> {</span>};');
     });
+  });
+  
+  describe('settings', function() {
+    
+    var site = kerouac();
+    
+    it('should get and set settings', function() {
+      site.set('foo', 'bar');
+      expect(site.get('foo')).to.equal('bar');
+    });
+    
+    it('should translate "view engine" to "layout engine"', function() {
+      site.set('view engine', 'foo');
+      expect(site.get('view engine')).to.equal('foo');
+      expect(site.get('layout engine')).to.equal('foo');
+    });
+    
+    it('should enable flags', function() {
+      site.enable('baz');
+      expect(site.get('baz')).to.be.true;
+      expect(site.enabled('baz')).to.be.true;
+      expect(site.disabled('baz')).to.be.false;
+    });
+    
+    it('should disable flags', function() {
+      site.disable('baz');
+      expect(site.get('baz')).to.be.false;
+      expect(site.enabled('baz')).to.be.false;
+      expect(site.disabled('baz')).to.be.true;
+    });
+    
   });
   
   describe('engine registration', function() {
