@@ -92,6 +92,9 @@ plugin:
 
     site.plug(require('kerouac-sitemap')());
 
+A [list](https://github.com/jaredhanson/kerouac/wiki/Plugins) of plugins
+developed by the community is available on the [wiki](https://github.com/jaredhanson/kerouac/wiki).
+
 ## Examples
 
 The following sites are built with Kerouac, and have public code repositories
