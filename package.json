@@ -1,8 +1,10 @@
 {
   "name": "kerouac",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Poetic static site generator for Node.js.",
-  "keywords": ["static"],
+  "keywords": [
+    "static"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/jaredhanson/kerouac.git"
@@ -15,13 +17,15 @@
     "email": "jaredhanson@gmail.com",
     "url": "http://www.jaredhanson.net/"
   },
-  "licenses": [ {
-    "type": "MIT",
-    "url": "http://www.opensource.org/licenses/MIT" 
-  } ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
   "main": "./lib",
-  "bin" : {
-    "kerouac" : "./bin/kerouac.js"
+  "bin": {
+    "kerouac": "./bin/kerouac.js"
   },
   "dependencies": {
     "commander": "1.x.x",
@@ -39,5 +43,7 @@
   "scripts": {
     "test": "NODE_PATH=./lib node_modules/.bin/mocha --reporter spec --require test/node/bootstrap test/*.test.js test/**/*.test.js"
   },
-  "engines": { "node": ">= 0.6.0" }
+  "engines": {
+    "node": ">= 0.6.0"
+  }
 }
