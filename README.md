@@ -95,6 +95,31 @@ plugin:
 A [list](https://github.com/jaredhanson/kerouac/wiki/Plugins) of plugins
 developed by the community is available on the [wiki](https://github.com/jaredhanson/kerouac/wiki).
 
+#### Middleware
+
+Just like [Express](http://expressjs.com/) and [Connect](http://www.senchalabs.org/connect/),
+Kerouac allows pages to be generated using middleware at both the whole-site and
+per-page level.  This is the lowest-level API, and content, assets, and plugins
+(as detailed above) are built upon this foundation.
+
+The majority of sites will never need to operate at this level.  If needed, the
+API is simple.
+
+    // whole-site middleware
+    site.use(function(page, next) {
+      console.log('generating ' + page.path);
+      next();
+    });
+    
+    // page-level middleware
+    site.page('/hello.txt', function(page, next) {
+      page.write('Hello!');
+      page.end();
+    });
+
+A [list](https://github.com/jaredhanson/kerouac/wiki/Middleware) of middleware
+developed by the community is available on the [wiki](https://github.com/jaredhanson/kerouac/wiki).
+
 ## Examples
 
 The following sites are built with Kerouac, and have public code repositories
