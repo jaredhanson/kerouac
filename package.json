@@ -28,6 +28,7 @@
     "kerouac": "./bin/kerouac.js"
   },
   "dependencies": {
+    "ejs": "0.8.x",
     "commander": "1.x.x",
     "mkdirp": "0.3.x",
     "diveSync": "0.2.x",
