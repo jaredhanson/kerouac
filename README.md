@@ -32,7 +32,6 @@ been building a hybrid static and dynamic site been so consistent.
       if (err) {
         console.error(err.message);
         console.error(err.stack);
-        return;
       }
     });
 
@@ -45,7 +44,7 @@ Kerouac will render all content within a directory:
 
     site.content('content');
 
-Content contains a section known as "front matter" surrounded by three dashes
+Content files contain a section known as "front matter" surrounded by three dashes
 (`---`).  Front matter specifies metadata about the content, including which
 layout should be used when generating a web page.
 
@@ -58,7 +57,7 @@ layout should be used when generating a web page.
 
     Welcome to my website!
 
-Layouts are located in a `layouts` directory and are rendered using [EJS](https://github.com/visionmedia/ejs).
+Layouts are located in a `layouts` directory and are rendered using [EJS](https://github.com/visionmedia/ejs). EJS template filenames must end in the extension ".ejs".
 
     <!DOCTYPE html>
     <html>
@@ -81,11 +80,21 @@ Note that markup and layout rendering is fully customizable.  Alternatives,
 such as [Textile](http://en.wikipedia.org/wiki/Textile_%28markup_language%29)
 and [Jade](http://jade-lang.com/), can be used to suit your preferences.
 
+A minimal project directory would include `content`, `layouts`, and `public` subdirectories, along with a site.js file: 
+
+project
+├─ content
+|  └─ index.md
+├─ layouts
+|  └─ main.ejs
+├─ public
+└─ site.js
+
 #### Plugins
 
 Many websites contain sections, such as a sitemap or blog, which conform to an
 established set of conventions.  Kerouac supports plugins, which can be used to
-bundle up these sections into modules that can be reused accross multiple sites.
+bundle up these sections into modules that can be reused across multiple sites.
 
 For example, to generate a sitemap for your site, simply add the [kerouac-sitemap](https://github.com/jaredhanson/kerouac-sitemap)
 plugin:
