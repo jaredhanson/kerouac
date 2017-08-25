@@ -1,4 +1,4 @@
-var copy = require('middleware/copy');
+var copy = require('../../lib/middleware/copy');
 
 
 describe('copy middleware', function() {

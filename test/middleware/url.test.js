@@ -1,4 +1,4 @@
-var url = require('middleware/url');
+var url = require('../../lib/middleware/url');
 
 
 describe('url middleware', function() {

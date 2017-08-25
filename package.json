@@ -5,28 +5,25 @@
   "keywords": [
     "static"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jaredhanson/kerouac.git"
-  },
-  "bugs": {
-    "url": "http://github.com/jaredhanson/kerouac/issues"
-  },
   "author": {
     "name": "Jared Hanson",
     "email": "jaredhanson@gmail.com",
     "url": "http://www.jaredhanson.net/"
   },
+  "repository": {    "type": "git",
+    "url": "git://github.com/jaredhanson/kerouac.git"
+  },
+  "bugs": {
+    "url": "http://github.com/jaredhanson/kerouac/issues"
+  },
+  "license": "MIT",
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
+      "url": "http://opensource.org/licenses/MIT"
     }
   ],
   "main": "./lib",
-  "bin": {
-    "kerouac": "./bin/kerouac.js"
-  },
   "dependencies": {
     "commander": "1.x.x",
     "mkdirp": "0.3.x",
@@ -37,13 +34,14 @@
     "debug": "0.7.x"
   },
   "devDependencies": {
-    "mocha": "1.x.x",
-    "chai": "1.x.x"
-  },
-  "scripts": {
-    "test": "NODE_PATH=./lib node_modules/.bin/mocha --reporter spec --require test/node/bootstrap test/*.test.js test/**/*.test.js"
+    "make-node": "0.3.x",
+    "mocha": "2.x.x",
+    "chai": "2.x.x"
   },
   "engines": {
     "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "NODE_PATH=./lib node_modules/.bin/mocha --reporter spec --require test/node/bootstrap test/*.test.js test/**/*.test.js"
   }
 }

@@ -1,4 +1,4 @@
-var kerouac = require('index');
+var kerouac = require('../lib/index');
 
 
 describe('Kerouac', function() {

@@ -1,28 +1,25 @@
-SOURCES = lib/**/*.js
+include node_modules/make-node/main.mk
+
+
+SOURCES = lib/*.js lib/**/*.js
 TESTS = test/*.test.js test/**/*.test.js
 
-# ==============================================================================
-# Node Tests
-# ==============================================================================
+LCOVFILE = ./reports/coverage/lcov.info
 
-MOCHA = ./node_modules/.bin/mocha
-
-test: test-node
-test-node:
-	@NODE_PATH=./lib \
-	$(MOCHA) \
-		--reporter spec \
-		--require test/node/bootstrap $(TESTS)
-
-# ==============================================================================
-# Static Analysis
-# ==============================================================================
-
-JSHINT = jshint
-
-hint: lint
-lint:
-	$(JSHINT) $(SOURCES)
+MOCHAFLAGS = --require ./test/bootstrap/node
 
 
-.PHONY: test test-node hint lint
+view-docs:
+	open ./docs/index.html
+
+view-cov:
+	open ./reports/coverage/lcov-report/index.html
+
+clean: clean-docs clean-cov
+	-rm -r $(REPORTSDIR)
+
+clobber: clean
+	-rm -r node_modules
+
+
+.PHONY: clean clobber

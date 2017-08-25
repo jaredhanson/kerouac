@@ -1,4 +1,4 @@
-var Route = require('route');
+var Route = require('../lib/route');
 
 
 describe('Route', function() {

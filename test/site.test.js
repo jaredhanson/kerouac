@@ -1,5 +1,5 @@
-var Site = require('site')
-  , Page = require('page');
+var Site = require('../lib/site')
+  , Page = require('../lib/page');
 
 
 describe('Site', function() {

@@ -1,4 +1,4 @@
-var render = require('middleware/render');
+var render = require('../../lib/middleware/render');
 
 
 describe('render middleware', function() {

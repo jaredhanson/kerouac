@@ -1,4 +1,4 @@
-var prettyURL = require('middleware/prettyURL');
+var prettyURL = require('../../lib/middleware/prettyURL');
 
 
 describe('prettyURL middleware', function() {

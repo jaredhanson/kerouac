@@ -1,4 +1,4 @@
-var init = require('middleware/init');
+var init = require('../../lib/middleware/init');
 
 
 describe('init middleware', function() {
