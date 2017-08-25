@@ -128,19 +128,44 @@ that illustrate how to develop using Kerouac's API.
 - [Locomotive](http://locomotivejs.org/) — ([source](https://github.com/jaredhanson/www.locomotivejs.org))
 - [Passport](http://passportjs.org/) — ([source](https://github.com/jaredhanson/www.passportjs.org))
 
-## Tests
+## Contributing
 
-    $ npm install
-    $ make test
+#### Tests
 
-[![Build Status](https://secure.travis-ci.org/jaredhanson/kerouac.png)](http://travis-ci.org/jaredhanson/kerouac)  [![David DM](https://david-dm.org/jaredhanson/kerouac.png)](http://david-dm.org/jaredhanson/kerouac)
+The test suite is located in the `test/` directory.  All new features are
+expected to have corresponding test cases.  Ensure that the complete test suite
+passes by executing:
 
-## Credits
+```bash
+$ make test
+```
 
-  - [Jared Hanson](http://github.com/jaredhanson)
+#### Coverage
+
+All new feature development is expected to have test coverage.  Patches that
+increse test coverage are happily accepted.  Coverage reports can be viewed by
+executing:
+
+```bash
+$ make test-cov
+$ make view-cov
+```
+
+## Support
+
+#### Funding
+
+This software is provided to you as open source, free of charge.  The time and
+effort to develop and maintain this project is volunteered by [@jaredhanson](https://github.com/jaredhanson).
+If you (or your employer) benefit from this project, please consider a financial
+contribution.  Your contribution helps continue the efforts that produce this
+and other open source software.
+
+Funds are accepted via [PayPal](https://paypal.me/jaredhanson), [Venmo](https://venmo.com/jaredhanson),
+and [other](http://jaredhanson.net/pay) methods.  Any amount is appreciated.
 
 ## License
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2012-2013 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>
+Copyright (c) 2012-2017 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>
