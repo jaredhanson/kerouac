@@ -1,5 +1,11 @@
 # Kerouac
 
+[![Build](https://img.shields.io/travis/jaredhanson/kerouac.svg)](https://travis-ci.org/jaredhanson/kerouac)
+[![Coverage](https://img.shields.io/coveralls/jaredhanson/kerouac.svg)](https://coveralls.io/r/jaredhanson/kerouac)
+[![Quality](https://img.shields.io/codeclimate/github/jaredhanson/kerouac.svg?label=quality)](https://codeclimate.com/github/jaredhanson/kerouac)
+[![Dependencies](https://img.shields.io/david/jaredhanson/kerouac.svg)](https://david-dm.org/jaredhanson/kerouac)
+
+
 > I saw that my life was a vast glowing empty page and I could do anything I
 > wanted.
 >
