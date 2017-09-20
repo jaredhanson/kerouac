@@ -1,6 +1,6 @@
 # Kerouac
 
-[![Version](https://img.shields.io/npm/v/marked-engine.svg?label=version)](https://www.npmjs.com/package/marked-engine)
+[![Version](https://img.shields.io/npm/v/kerouac.svg?label=version)](https://www.npmjs.com/package/kerouac)
 [![Build](https://img.shields.io/travis/jaredhanson/kerouac.svg)](https://travis-ci.org/jaredhanson/kerouac)
 [![Quality](https://img.shields.io/codeclimate/github/jaredhanson/kerouac.svg?label=quality)](https://codeclimate.com/github/jaredhanson/kerouac)
 [![Coverage](https://img.shields.io/coveralls/jaredhanson/kerouac.svg)](https://coveralls.io/r/jaredhanson/kerouac)
