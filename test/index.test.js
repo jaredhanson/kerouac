@@ -1,9 +1,9 @@
-var kerouac = require('../lib/index');
+var kerouac = require('..');
 
 
-describe('Kerouac', function() {
+describe('kerouac', function() {
     
-  it('should export function', function() {
+  it('should export create function', function() {
     expect(kerouac).to.be.a('function');
     
     var site = kerouac();
@@ -31,7 +31,7 @@ describe('Kerouac', function() {
     it('should have default settings', function() {
       expect(site.get('layout engine')).to.equal('ejs');
       expect(site.get('layouts')).to.equal(process.cwd() + '/layouts');
-      expect(site.get('output')).to.equal(process.cwd() + '/output');
+      expect(site.get('output')).to.equal(process.cwd() + '/dist');
     });
     
     it('should parse YAML front matter', function() {
