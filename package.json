@@ -27,7 +27,7 @@
   "dependencies": {
     "commander": "1.x.x",
     "mkdirp": "0.3.x",
-    "diveSync": "0.2.x",
+    "diveSync": "0.3.x",
     "js-yaml": "3.x.x",
     "marked-engine": "0.2.x",
     "highlight.js": "7.x.x",
