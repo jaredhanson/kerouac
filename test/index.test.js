@@ -22,7 +22,7 @@ describe('kerouac', function() {
   describe('newly initialized site', function() {
     var site = kerouac();
     
-    it('should expose content and assets', function() {
+    it('should expose content and assets as convience for common sections', function() {
       expect(site.content).to.be.a('function');
       expect(site.assets).to.be.a('function');
       expect(site.assets).to.equal(site.static);
@@ -51,11 +51,19 @@ describe('kerouac', function() {
       expect(data.title).to.equal('Hello JSON');
     });
     
-    it('should not parse unknown front matter format', function() {
-      var unknown = "foobar"
+    it('should not parse empty front matter', function() {
+      var empty = "";
       
-      var data = site.fm(unknown);
+      var data = site.fm(empty);
       expect(data).to.be.undefined;
+    });
+    
+    it('should throw exception when parsing invalid front matter', function() {
+      var unknown = "fubar"
+      
+      expect(function() {
+        site.fm(unknown);
+      }).to.throw(SyntaxError);
     });
     
     it('should highlight syntax', function() {
