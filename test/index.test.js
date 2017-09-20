@@ -70,7 +70,7 @@ describe('kerouac', function() {
       var code = "function foo() {};"
       
       var out = site.highlight(code);
-      expect(out).to.equal('<span class=\"function\"><span class=\"keyword\">function</span> <span class=\"title\">foo</span><span class=\"params\">()</span> {</span>};');
+      expect(out).to.equal('<span class=\"function\"><span class=\"keyword\">function</span> <span class=\"title\">foo</span><span class=\"params\">()</span> </span>{};');
     });
   });
   
