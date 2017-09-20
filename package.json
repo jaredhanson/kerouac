@@ -26,7 +26,7 @@
   "main": "./lib",
   "dependencies": {
     "commander": "1.x.x",
-    "mkdirp": "0.3.x",
+    "mkdirp": "0.5.x",
     "diveSync": "0.3.x",
     "js-yaml": "3.x.x",
     "marked-engine": "0.2.x",
