@@ -22,6 +22,13 @@ describe('Route', function() {
     
     it('should match correctly', function() {
       expect(route.match('/welcome')).to.be.true;
+      expect(route.params).to.be.instanceof(Object);
+      expect(Object.keys(route.params)).to.have.length(0);
+      
+      expect(route.match('/not-welcome')).to.be.false;
+    });
+    
+    it('should not match correctly', function() {
       expect(route.match('/not-welcome')).to.be.false;
     });
   
@@ -53,6 +60,11 @@ describe('Route', function() {
       expect(route.params.day).to.equal('18');
       expect(route.params.slug).to.equal('hello-world');
       
+      expect(route.match('/blog/2013/04/18')).to.be.false;
+      expect(route.match('/not-blog/2013/04/18/hello-world')).to.be.false;
+    });
+    
+    it('should not match correctly', function() {
       expect(route.match('/blog/2013/04/18')).to.be.false;
       expect(route.match('/not-blog/2013/04/18/hello-world')).to.be.false;
     });
