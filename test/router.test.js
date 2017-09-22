@@ -3,17 +3,17 @@ var Router = require('../lib/router');
 
 describe('Router', function() {
   
-  describe('with two simple routes', function() {
+  describe('two simple routes', function() {
     
     var router = new Router();
     
     router.route('/foo', function(page, next) {
-      page.routedToFoo = true;
+      page.foo = true;
       next();
     });
     
     router.route('/bar', function(page, next) {
-      page.routedToBar = true;
+      page.bar = true;
       next();
     });
     
@@ -27,8 +27,8 @@ describe('Router', function() {
       
       router.middleware(page, function(err) {
         if (err) { return done(err); }
-        expect(page.routedToFoo).to.be.true;
-        expect(page.routedToBar).to.be.undefined;
+        expect(page.foo).to.be.true;
+        expect(page.bar).to.be.undefined;
         done();
       })
     });
@@ -39,8 +39,8 @@ describe('Router', function() {
       
       router.middleware(page, function(err) {
         if (err) { return done(err); }
-        expect(page.routedToFoo).to.be.undefined;
-        expect(page.routedToBar).to.be.true;
+        expect(page.foo).to.be.undefined;
+        expect(page.bar).to.be.true;
         done();
       })
     });
@@ -51,126 +51,120 @@ describe('Router', function() {
       
       router.middleware(page, function(err) {
         if (err) { return done(err); }
-        expect(page.routedToFoo).to.be.undefined;
-        expect(page.routedToBar).to.be.undefined;
+        expect(page.foo).to.be.undefined;
+        expect(page.bar).to.be.undefined;
         done();
       })
     });
     
   });
   
-  describe('with route containing multiple callbacks', function() {
+  describe('one route containing multiple callbacks', function() {
     
     var router = new Router();
     
     router.route('/foo',
       function(page, next) {
-        page.routedTo = [ '1' ];
+        page.__locals = [ '1' ];
         next();
       },
       function(page, next) {
-        page.routedTo.push('2');
+        page.__locals.push('2');
         next();
       },
       function(page, next) {
-        page.routedTo.push('3');
+        page.__locals.push('3');
         next();
       });
     
-    it('should dispatch /foo', function(done) {
+    it('should dispatch', function(done) {
       var page = {};
       page.path = '/foo'
       
       router.middleware(page, function(err) {
         if (err) { return done(err); }
-        expect(page.routedTo).to.be.an.instanceOf(Array);
-        expect(page.routedTo).to.have.length(3);
-        expect(page.routedTo[0]).to.equal('1');
-        expect(page.routedTo[1]).to.equal('2');
-        expect(page.routedTo[2]).to.equal('3');
+        expect(page.__locals).to.be.an.instanceOf(Array);
+        expect(page.__locals).to.have.length(3);
+        expect(page.__locals[0]).to.equal('1');
+        expect(page.__locals[1]).to.equal('2');
+        expect(page.__locals[2]).to.equal('3');
         done();
       })
     });
     
   });
   
-  describe('with route containing multiple callbacks some of which are skipped', function() {
+  describe('multiple routes declared with same path, containing a callback which is skipped', function() {
     
     var router = new Router();
     
     router.route('/foo',
       function(page, next) {
-        page.routedTo = [ 'a1' ];
+        page.__locals = [ '1A' ];
         next();
       },
       function(page, next) {
-        page.routedTo.push('a2');
+        page.__locals.push('2A');
         next('route');
       },
       function(page, next) {
-        page.routedTo.push('a3');
+        page.__locals.push('3A');
         next();
       });
       
     router.route('/foo', function(page, next) {
-      page.routedTo.push('b1');
+      page.__locals.push('1B');
       next();
     });
     
-    it('should dispatch /foo', function(done) {
+    it('should dispatch', function(done) {
       var page = {};
       page.path = '/foo'
       
       router.middleware(page, function(err) {
         if (err) { return done(err); }
-        expect(page.routedTo).to.be.an.instanceOf(Array);
-        expect(page.routedTo).to.have.length(3);
-        expect(page.routedTo[0]).to.equal('a1');
-        expect(page.routedTo[1]).to.equal('a2');
-        expect(page.routedTo[2]).to.equal('b1');
+        expect(page.__locals).to.be.an.instanceOf(Array);
+        expect(page.__locals).to.have.length(3);
+        expect(page.__locals[0]).to.equal('1A');
+        expect(page.__locals[1]).to.equal('2A');
+        expect(page.__locals[2]).to.equal('1B');
         done();
       })
     });
     
   });
   
-  describe('with route that is parameterized', function() {
+  describe('route that is parameterized', function() {
     
     var router = new Router();
     
     router.route('/blog/:year/:month/:day/:slug', function(page, next) {
-      page.gotParams = [];
-      page.gotParams.push(page.params['year']);
-      page.gotParams.push(page.params['month']);
-      page.gotParams.push(page.params['day']);
-      page.gotParams.push(page.params['slug']);
+      page.__locals = [];
+      page.__locals.push(page.params['year']);
+      page.__locals.push(page.params['month']);
+      page.__locals.push(page.params['day']);
+      page.__locals.push(page.params['slug']);
       next();
     });
     
-    router.route('/blog/2013/04/20/foo', function(page, next) {
-      page.blogPage = true;
-      next();
-    });
-    
-    it('should dispatch /blog', function(done) {
+    it('should dispatch with parameter values', function(done) {
       var page = {};
       page.path = '/blog/2013/04/20/foo'
       
       router.middleware(page, function(err) {
         if (err) { return done(err); }
-        expect(page.gotParams).to.have.length(4);
-        expect(page.gotParams[0]).to.equal('2013');
-        expect(page.gotParams[1]).to.equal('04');
-        expect(page.gotParams[2]).to.equal('20');
-        expect(page.gotParams[3]).to.equal('foo');
-        expect(page.blogPage).to.be.true;
+        expect(page.__locals).to.have.length(4);
+        expect(page.__locals[0]).to.equal('2013');
+        expect(page.__locals[1]).to.equal('04');
+        expect(page.__locals[2]).to.equal('20');
+        expect(page.__locals[3]).to.equal('foo');
         done();
       })
     });
     
   });
   
-  describe('with route that encounters an error', function() {
+  describe('route that encounters an error', function() {
     
     var router = new Router();
     
@@ -178,7 +172,7 @@ describe('Router', function() {
       next(new Error('something went wrong'));
     });
     
-    it('should dispatch /foo', function(done) {
+    it('should dispatch', function(done) {
       var page = {};
       page.path = '/foo'
       
@@ -191,7 +185,7 @@ describe('Router', function() {
     
   });
   
-  describe('with route that throws an exception', function() {
+  describe('route that throws an exception', function() {
     
     var router = new Router();
     
@@ -199,7 +193,7 @@ describe('Router', function() {
       throw new Error('something went horribly wrong');
     });
     
-    it('should dispatch /foo', function(done) {
+    it('should dispatch', function(done) {
       var page = {};
       page.path = '/foo'
       
@@ -212,68 +206,68 @@ describe('Router', function() {
     
   });
   
-  describe('with route containing error handling that is not called', function() {
+  describe('with route containing error handling that is not invoked', function() {
     
     var router = new Router();
     
     router.route('/foo',
       function(page, next) {
-        page.routedTo = [ '1' ];
+        page.__locals = [ '1' ];
         next();
       },
       function(page, next) {
-        page.routedTo.push('2');
+        page.__locals.push('2');
         next();
       },
       function(err, page, next) {
-        page.routedTo.push('error');
+        page.__locals.push('error');
         next();
       });
     
-    it('should dispatch /foo', function(done) {
+    it('should dispatch', function(done) {
       var page = {};
       page.path = '/foo'
       
       router.middleware(page, function(err) {
         if (err) { return done(err); }
-        expect(page.routedTo).to.be.an.instanceOf(Array);
-        expect(page.routedTo).to.have.length(2);
-        expect(page.routedTo[0]).to.equal('1');
-        expect(page.routedTo[1]).to.equal('2');
+        expect(page.__locals).to.be.an.instanceOf(Array);
+        expect(page.__locals).to.have.length(2);
+        expect(page.__locals[0]).to.equal('1');
+        expect(page.__locals[1]).to.equal('2');
         done();
       })
     });
     
   });
   
-  describe('with route containing error handling that is called', function() {
+  describe('with route containing error handling that is invoked', function() {
     
     var router = new Router();
     
     router.route('/foo',
       function(page, next) {
-        page.routedTo = [ '1' ];
-        next(new Error('1 error'));
+        page.__locals = [ '1' ];
+        next(new Error('1X'));
       },
       function(page, next) {
-        page.routedTo.push('2');
+        page.__locals.push('2');
         next();
       },
       function(err, page, next) {
-        page.routedTo.push(err.message);
+        page.__locals.push(err.message);
         next();
       });
     
-    it('should dispatch /foo', function(done) {
+    it('should dispatch', function(done) {
       var page = {};
       page.path = '/foo'
       
       router.middleware(page, function(err) {
         if (err) { return done(err); }
-        expect(page.routedTo).to.be.an.instanceOf(Array);
-        expect(page.routedTo).to.have.length(2);
-        expect(page.routedTo[0]).to.equal('1');
-        expect(page.routedTo[1]).to.equal('1 error');
+        expect(page.__locals).to.be.an.instanceOf(Array);
+        expect(page.__locals).to.have.length(2);
+        expect(page.__locals[0]).to.equal('1');
+        expect(page.__locals[1]).to.equal('1X');
         done();
       })
     });
