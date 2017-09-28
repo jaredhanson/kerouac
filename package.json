@@ -29,6 +29,7 @@
   "dependencies": {
     "commander": "1.x.x",
     "path-to-regexp": "0.1.7",
+    "functionpool": "0.1.x",
     "mkdirp": "0.5.x",
     "diveSync": "0.3.x",
     "js-yaml": "3.x.x",
