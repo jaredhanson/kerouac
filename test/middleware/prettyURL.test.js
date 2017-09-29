@@ -18,6 +18,21 @@ describe('middleware/prettyURL', function() {
     });
   });
   
+  it('should not make other exensions pretty', function(done) {
+    var middleware = prettyURL();
+    var page = {};
+    page.path = '/foo.xml';
+    page.url = '/foo.xml';
+    
+    middleware(page, function(err) {
+      if (err) { return done(err); }
+      expect(page.path).to.equal('/foo.xml');
+      expect(page.url).to.equal('/foo.xml');
+      expect(page.outputPath).to.be.undefined;
+      done();
+    });
+  });
+  
   it('should not make index URLs pretty', function(done) {
     var middleware = prettyURL();
     var page = {};
