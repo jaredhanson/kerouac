@@ -10,7 +10,7 @@ describe('prettyURL middleware', function() {
     
     middleware(page, function(err) {
       if (err) { return done(err); }
-      expect(page.path).to.equal('/foo/index.html');
+      expect(page.outputPath).to.equal('/foo/index.html');
       done();
     });
   });
@@ -38,7 +38,7 @@ describe('prettyURL middleware with ext option', function() {
     
     middleware(page, function(err) {
       if (err) { return done(err); }
-      expect(page.path).to.equal('/foo/index.htm');
+      expect(page.outputPath).to.equal('/foo/index.htm');
       done();
     });
   });
@@ -66,7 +66,7 @@ describe('prettyURL middleware with ext and index option', function() {
     
     middleware(page, function(err) {
       if (err) { return done(err); }
-      expect(page.path).to.equal('/foo/idx.xhtml');
+      expect(page.outputPath).to.equal('/foo/idx.xhtml');
       done();
     });
   });
