@@ -1,16 +1,14 @@
 var init = require('../../lib/middleware/init');
 
 
-describe('init middleware', function() {
+describe('middleware/init', function() {
   
   it('should expose properties on page', function(done) {
-    var middleware = init('site', 'pages');
+    var middleware = init();
     var page = {};
     
     middleware(page, function(err) {
       if (err) { return done(err); }
-      expect(page.site).to.equal('site');
-      expect(page.pages).to.equal('pages');
       expect(page.locals).to.be.an('object');
       expect(page.next).to.be.a('function');
       done();
