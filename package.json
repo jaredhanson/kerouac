@@ -27,6 +27,7 @@
   ],
   "main": "./lib",
   "dependencies": {
+    "ejs": "0.8.x",
     "commander": "1.x.x",
     "path-to-regexp": "0.1.7",
     "mkdirp": "0.5.x",
