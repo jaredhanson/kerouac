@@ -16,8 +16,8 @@ describe('Route', function() {
       expect(route.fns).to.have.length(1);
     });
     
-    it('should have whole path', function() {
-      expect(route.isWholePath()).to.be.true;
+    it('should be bound', function() {
+      expect(route.isBound()).to.be.true;
     });
     
     it('should match correctly', function() {
@@ -47,8 +47,8 @@ describe('Route', function() {
       expect(route.fns).to.have.length(1);
     });
     
-    it('should not have whole path', function() {
-      expect(route.isWholePath()).to.be.false;
+    it('should not be bound', function() {
+      expect(route.isBound()).to.be.false;
     });
     
     it('should match correctly', function() {
