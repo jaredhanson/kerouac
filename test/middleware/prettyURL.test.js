@@ -7,7 +7,6 @@ describe('middleware/prettyURL', function() {
     var middleware = prettyURL();
     var page = {};
     page.path = '/foo.html';
-    page.url = '/foo.html';
     
     middleware(page, function(err) {
       if (err) { return done(err); }
@@ -18,31 +17,28 @@ describe('middleware/prettyURL', function() {
     });
   });
   
-  it('should not make other exensions pretty', function(done) {
-    var middleware = prettyURL();
-    var page = {};
-    page.path = '/foo.xml';
-    page.url = '/foo.xml';
-    
-    middleware(page, function(err) {
-      if (err) { return done(err); }
-      expect(page.path).to.equal('/foo.xml');
-      expect(page.url).to.equal('/foo.xml');
-      expect(page.outputPath).to.be.undefined;
-      done();
-    });
-  });
-  
-  it('should not make index URLs pretty', function(done) {
+  it('should make index URLs pretty', function(done) {
     var middleware = prettyURL();
     var page = {};
     page.path = '/foo/index.html';
-    page.url = '/foo/index.html';
     
     middleware(page, function(err) {
       if (err) { return done(err); }
       expect(page.path).to.equal('/foo/index.html');
-      expect(page.url).to.equal('/foo/index.html');
+      expect(page.url).to.equal('/foo/');
+      expect(page.outputPath).to.equal('/foo/index.html');
+      done();
+    });
+  });
+  
+  it('should not make other exensions pretty', function(done) {
+    var middleware = prettyURL();
+    var page = {};
+    page.path = '/foo.xml';
+    
+    middleware(page, function(err) {
+      if (err) { return done(err); }
+      expect(page.path).to.equal('/foo.xml');
       expect(page.outputPath).to.be.undefined;
       done();
     });
@@ -54,7 +50,6 @@ describe('middleware/prettyURL', function() {
       var middleware = prettyURL('.htm');
       var page = {};
       page.path = '/foo.htm';
-      page.url = '/foo.htm';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
@@ -65,17 +60,16 @@ describe('middleware/prettyURL', function() {
       });
     });
   
-    it('should not make index URLs pretty', function(done) {
+    it('should make index URLs pretty', function(done) {
       var middleware = prettyURL('.htm');
       var page = {};
       page.path = '/foo/index.htm';
-      page.url = '/foo/index.htm';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
         expect(page.path).to.equal('/foo/index.htm');
-        expect(page.url).to.equal('/foo/index.htm');
-        expect(page.outputPath).to.be.undefined;
+        expect(page.url).to.equal('/foo/');
+        expect(page.outputPath).to.equal('/foo/index.htm');
         done();
       });
     });
@@ -88,7 +82,6 @@ describe('middleware/prettyURL', function() {
       var middleware = prettyURL('.xhtml', 'idx');
       var page = {};
       page.path = '/foo.xhtml';
-      page.url = '/foo.xhtml';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
@@ -99,17 +92,16 @@ describe('middleware/prettyURL', function() {
       });
     });
   
-    it('should not make index URLs pretty', function(done) {
+    it('should make index URLs pretty', function(done) {
       var middleware = prettyURL('.xhtml', 'idx');
       var page = {};
       page.path = '/foo/idx.xhtml';
-      page.url = '/foo/idx.xhtml';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
         expect(page.path).to.equal('/foo/idx.xhtml');
-        expect(page.url).to.equal('/foo/idx.xhtml');
-        expect(page.outputPath).to.be.undefined;
+        expect(page.url).to.equal('/foo/');
+        expect(page.outputPath).to.equal('/foo/idx.xhtml');
         done();
       });
     });
