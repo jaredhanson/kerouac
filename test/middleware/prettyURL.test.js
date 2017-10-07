@@ -1,7 +1,7 @@
 var prettyURL = require('../../lib/middleware/prettyURL');
 
 
-describe('middleware/prettyURL', function() {
+describe.only('middleware/prettyURL', function() {
   
   it('should make ugly URLs pretty', function(done) {
     var middleware = prettyURL();
@@ -74,6 +74,19 @@ describe('middleware/prettyURL', function() {
       });
     });
     
+    it('should not make other exensions pretty', function(done) {
+      var middleware = prettyURL('.htm');
+      var page = {};
+      page.path = '/foo.xml';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.path).to.equal('/foo.xml');
+        expect(page.outputPath).to.be.undefined;
+        done();
+      });
+    });
+    
   }); // with ext option
   
   describe('with ext and index option', function() {
@@ -102,6 +115,19 @@ describe('middleware/prettyURL', function() {
         expect(page.path).to.equal('/foo/idx.xhtml');
         expect(page.url).to.equal('/foo/');
         expect(page.outputPath).to.equal('/foo/idx.xhtml');
+        done();
+      });
+    });
+    
+    it('should not make other exensions pretty', function(done) {
+      var middleware = prettyURL('.xhtml', '.idx');
+      var page = {};
+      page.path = '/foo.xml';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.path).to.equal('/foo.xml');
+        expect(page.outputPath).to.be.undefined;
         done();
       });
     });
