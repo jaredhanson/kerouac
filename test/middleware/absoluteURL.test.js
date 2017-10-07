@@ -5,28 +5,109 @@ describe('middleware/absoluteURL', function() {
   
   describe('without base url setting', function() {
     
-    it('should leave path', function(done) {
+    it('should leave pretty url', function(done) {
       var middleware = fullURL();
       var page = {};
-      page.path = '/home.html';
+      page.url = '/home/';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
-        expect(page.absoluteURL).to.equal('/home.html');
+        expect(page.absoluteURL).to.equal('/home/');
+        expect(page.fullURL).to.be.undefined;
+        done();
+      });
+    });
+    
+    it('should leave ugly url', function(done) {
+      var middleware = fullURL();
+      var page = {};
+      page.url = '/home.xml';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.absoluteURL).to.equal('/home.xml');
+        expect(page.fullURL).to.be.undefined;
+        done();
+      });
+    });
+    
+    it('should leave pretty nested url', function(done) {
+      var middleware = fullURL();
+      var page = {};
+      page.url = '/2000/01/01/hello/';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.absoluteURL).to.equal('/2000/01/01/hello/');
+        expect(page.fullURL).to.be.undefined;
+        done();
+      });
+    });
+    
+    it('should leave ugly nested url', function(done) {
+      var middleware = fullURL();
+      var page = {};
+      page.url = '/2000/01/01/hello.xml';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.absoluteURL).to.equal('/2000/01/01/hello.xml');
+        expect(page.fullURL).to.be.undefined;
+        done();
+      });
+    });
+    
+    it('should join base path and path of pretty url', function(done) {
+      var middleware = fullURL();
+      var page = {};
+      page.basePath = '/blog';
+      page.url = '/hello.html';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.absoluteURL).to.equal('/blog/hello.html');
         expect(page.fullURL).to.be.undefined;
         done();
       });
     });
   
-    it('should join base path and path', function(done) {
+    it('should join base path and path of ugly url', function(done) {
       var middleware = fullURL();
       var page = {};
       page.basePath = '/blog';
-      page.path = '/hello.html';
+      page.url = '/hello/';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
-        expect(page.absoluteURL).to.equal('/blog/hello.html');
+        expect(page.absoluteURL).to.equal('/blog/hello/');
+        expect(page.fullURL).to.be.undefined;
+        done();
+      });
+    });
+    
+    it('should join base path and path of pretty nested url', function(done) {
+      var middleware = fullURL();
+      var page = {};
+      page.basePath = '/blog';
+      page.url = '/2000/01/01/hello/';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.absoluteURL).to.equal('/blog/2000/01/01/hello/');
+        expect(page.fullURL).to.be.undefined;
+        done();
+      });
+    });
+    
+    it('should join base path and path of ugly nested url', function(done) {
+      var middleware = fullURL();
+      var page = {};
+      page.basePath = '/blog';
+      page.url = '/2000/01/01/hello.xml';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.absoluteURL).to.equal('/blog/2000/01/01/hello.xml');
         expect(page.fullURL).to.be.undefined;
         done();
       });
@@ -41,7 +122,7 @@ describe('middleware/absoluteURL', function() {
       var middleware = fullURL();
       var page = {};
       page.baseURL = 'http://www.example.com/';
-      page.path = '/home.html';
+      page.url = '/home.html';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
@@ -56,7 +137,7 @@ describe('middleware/absoluteURL', function() {
       var page = {};
       page.baseURL = 'http://www.example.com/';
       page.basePath = '/blog';
-      page.path = '/hello.html';
+      page.url = '/hello.html';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
@@ -71,7 +152,7 @@ describe('middleware/absoluteURL', function() {
       var page = {};
       page.baseURL = 'http://www.example.com/';
       page.basePath = '/blog';
-      page.path = '/2000/01/01/happy-new-year.html';
+      page.url = '/2000/01/01/happy-new-year.html';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
@@ -90,7 +171,7 @@ describe('middleware/absoluteURL', function() {
       var middleware = fullURL();
       var page = {};
       page.baseURL = 'http://www.example.com/~foo';
-      page.path = '/home.html';
+      page.url = '/home.html';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
@@ -105,7 +186,7 @@ describe('middleware/absoluteURL', function() {
       var page = {};
       page.baseURL = 'http://www.example.com/~foo';
       page.basePath = '/blog';
-      page.path = '/hello.html';
+      page.url = '/hello.html';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
@@ -120,7 +201,7 @@ describe('middleware/absoluteURL', function() {
       var page = {};
       page.baseURL = 'http://www.example.com/~foo';
       page.basePath = '/blog';
-      page.path = '/2000/01/01/happy-new-year.html';
+      page.url = '/2000/01/01/happy-new-year.html';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
@@ -139,7 +220,7 @@ describe('middleware/absoluteURL', function() {
       var middleware = fullURL();
       var page = {};
       page.baseURL = 'http://www.example.com/~foo/';
-      page.path = '/home.html';
+      page.url = '/home.html';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
@@ -154,7 +235,7 @@ describe('middleware/absoluteURL', function() {
       var page = {};
       page.baseURL = 'http://www.example.com/~foo/';
       page.basePath = '/blog';
-      page.path = '/hello.html';
+      page.url = '/hello.html';
     
       middleware(page, function(err) {
         if (err) { return done(err); }
@@ -169,7 +250,7 @@ describe('middleware/absoluteURL', function() {
       var page = {};
       page.baseURL = 'http://www.example.com/~foo/';
       page.basePath = '/blog';
-      page.path = '/2000/01/01/happy-new-year.html';
+      page.url = '/2000/01/01/happy-new-year.html';
     
       middleware(page, function(err) {
         if (err) { return done(err); }

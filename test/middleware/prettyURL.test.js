@@ -1,7 +1,7 @@
 var prettyURL = require('../../lib/middleware/prettyURL');
 
 
-describe.only('middleware/prettyURL', function() {
+describe('middleware/prettyURL', function() {
   
   it('should make ugly URLs pretty', function(done) {
     var middleware = prettyURL();
