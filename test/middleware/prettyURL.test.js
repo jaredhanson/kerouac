@@ -108,4 +108,38 @@ describe('middleware/prettyURL', function() {
     
   }); // with ext and index option
   
+  describe('base path handling', function() {
+    
+    it('should build correct output path with root path', function(done) {
+      var middleware = prettyURL();
+      var page = {};
+      page.basePath = '/blog'
+      page.path = '/foo.html';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.path).to.equal('/foo.html');
+        expect(page.url).to.equal('/foo/');
+        expect(page.outputPath).to.equal('/blog/foo/index.html');
+        done();
+      });
+    });
+    
+    it('should build correct output path with nested path', function(done) {
+      var middleware = prettyURL();
+      var page = {};
+      page.basePath = '/blog'
+      page.path = '/2017/09/03/foo.html';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.path).to.equal('/2017/09/03/foo.html');
+        expect(page.url).to.equal('/2017/09/03/foo/');
+        expect(page.outputPath).to.equal('/blog/2017/09/03/foo/index.html');
+        done();
+      });
+    });
+    
+  });
+  
 });
