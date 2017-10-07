@@ -136,7 +136,7 @@ describe.only('middleware/prettyURL', function() {
   
   describe('base path handling', function() {
     
-    it('should build correct output path with root path', function(done) {
+    it('should make ugly URLs pretty', function(done) {
       var middleware = prettyURL();
       var page = {};
       page.basePath = '/blog'
@@ -151,7 +151,36 @@ describe.only('middleware/prettyURL', function() {
       });
     });
     
-    it('should build correct output path with nested path', function(done) {
+    it('should make index URLs pretty', function(done) {
+      var middleware = prettyURL();
+      var page = {};
+      page.basePath = '/blog'
+      page.path = '/foo/index.html';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.path).to.equal('/foo/index.html');
+        expect(page.url).to.equal('/foo/');
+        expect(page.outputPath).to.equal('/blog/foo/index.html');
+        done();
+      });
+    });
+    
+    it('should not make other exensions pretty', function(done) {
+      var middleware = prettyURL();
+      var page = {};
+      page.basePath = '/blog'
+      page.path = '/foo.xml';
+    
+      middleware(page, function(err) {
+        if (err) { return done(err); }
+        expect(page.path).to.equal('/foo.xml');
+        expect(page.outputPath).to.be.undefined;
+        done();
+      });
+    });
+    
+    it('should make ugly nested URLs pretty', function(done) {
       var middleware = prettyURL();
       var page = {};
       page.basePath = '/blog'
