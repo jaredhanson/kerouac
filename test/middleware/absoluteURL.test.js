@@ -1,4 +1,4 @@
-var fullURL = require('../../lib/middleware/absoluteURL');
+var absoluteURL = require('../../lib/middleware/absoluteURL');
 
 
 describe('middleware/absoluteURL', function() {
@@ -6,7 +6,7 @@ describe('middleware/absoluteURL', function() {
   describe('without base url setting', function() {
     
     it('should leave pretty url', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.url = '/home/';
     
@@ -19,7 +19,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should leave ugly url', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.url = '/home.xml';
     
@@ -32,7 +32,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should leave pretty nested url', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.url = '/2000/01/01/hello/';
     
@@ -45,7 +45,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should leave ugly nested url', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.url = '/2000/01/01/hello.xml';
     
@@ -58,7 +58,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should join base path and path of pretty url', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.basePath = '/blog';
       page.url = '/hello.html';
@@ -72,7 +72,7 @@ describe('middleware/absoluteURL', function() {
     });
   
     it('should join base path and path of ugly url', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.basePath = '/blog';
       page.url = '/hello/';
@@ -86,7 +86,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should join base path and path of pretty nested url', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.basePath = '/blog';
       page.url = '/2000/01/01/hello/';
@@ -100,7 +100,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should join base path and path of ugly nested url', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.basePath = '/blog';
       page.url = '/2000/01/01/hello.xml';
@@ -119,7 +119,7 @@ describe('middleware/absoluteURL', function() {
   describe('with base url in root directory', function() {
     
     it('should leave path', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.baseURL = 'http://www.example.com/';
       page.url = '/home.html';
@@ -133,7 +133,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should join base path and path', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.baseURL = 'http://www.example.com/';
       page.basePath = '/blog';
@@ -148,7 +148,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should join base path and nested path', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.baseURL = 'http://www.example.com/';
       page.basePath = '/blog';
@@ -168,7 +168,7 @@ describe('middleware/absoluteURL', function() {
   describe('with base url in sub directory', function() {
     
     it('should leave path', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.baseURL = 'http://www.example.com/~foo';
       page.url = '/home.html';
@@ -182,7 +182,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should join base path and path', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.baseURL = 'http://www.example.com/~foo';
       page.basePath = '/blog';
@@ -197,7 +197,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should join base path and nested path', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.baseURL = 'http://www.example.com/~foo';
       page.basePath = '/blog';
@@ -217,7 +217,7 @@ describe('middleware/absoluteURL', function() {
   describe('with base url in sub directory with trailing slash', function() {
     
     it('should leave path', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.baseURL = 'http://www.example.com/~foo/';
       page.url = '/home.html';
@@ -231,7 +231,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should join base path and path', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.baseURL = 'http://www.example.com/~foo/';
       page.basePath = '/blog';
@@ -246,7 +246,7 @@ describe('middleware/absoluteURL', function() {
     });
     
     it('should join base path and nested path', function(done) {
-      var middleware = fullURL();
+      var middleware = absoluteURL();
       var page = {};
       page.baseURL = 'http://www.example.com/~foo/';
       page.basePath = '/blog';
