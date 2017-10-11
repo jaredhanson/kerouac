@@ -30,7 +30,7 @@ describe('kerouac', function() {
     it('should have default settings', function() {
       expect(site.get('layout engine')).to.equal('ejs');
       expect(site.get('layouts')).to.equal(process.cwd() + '/layouts');
-      expect(site.get('output')).to.equal(process.cwd() + '/dist');
+      expect(site.get('output')).to.equal(process.cwd() + '/www');
     });
     
     it('should parse YAML front matter', function() {
