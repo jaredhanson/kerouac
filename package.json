@@ -35,8 +35,10 @@
     "highlight.js": "9.x.x",
     "js-yaml": "3.x.x",
     "marked-engine": "0.2.x",
+    "merge-descriptors": "1.x.x",
     "mkdirp": "0.5.x",
-    "path-to-regexp": "0.1.7"
+    "path-to-regexp": "0.1.7",
+    "setprototypeof": "1.x.x"
   },
   "devDependencies": {
     "make-node": "0.3.x",
