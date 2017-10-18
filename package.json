@@ -43,7 +43,8 @@
   "devDependencies": {
     "make-node": "0.3.x",
     "mocha": "2.x.x",
-    "chai": "2.x.x"
+    "chai": "2.x.x",
+    "chai-kerouac-middleware": "0.0.x"
   },
   "engines": {
     "node": ">= 0.6.0"
