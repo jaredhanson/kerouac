@@ -7,7 +7,7 @@ describe('kerouac', function() {
     expect(kerouac).to.be.a('function');
     
     var site = kerouac();
-    expect(site.constructor.name).to.equal('Kerouac');
+    expect(site.constructor.name).to.equal('EventEmitter');
   });
   
   it('should export middleware', function() {
