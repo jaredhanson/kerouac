@@ -32,6 +32,7 @@
     "debug": "3.x.x",
     "diveSync": "0.3.x",
     "functionpool": "0.1.x",
+    "headmatter": "0.0.2",
     "highlight.js": "9.x.x",
     "js-yaml": "3.x.x",
     "marked-engine": "0.2.x",
