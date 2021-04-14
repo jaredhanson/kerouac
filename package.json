@@ -27,6 +27,7 @@
   ],
   "main": "./lib",
   "dependencies": {
+    "array-flatten": "^1.1.1",
     "canonical-path": "0.0.2",
     "commander": "1.x.x",
     "debug": "3.x.x",
