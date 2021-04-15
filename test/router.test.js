@@ -1,7 +1,7 @@
 var Router = require('../lib/router');
 
 
-describe('Router', function() {
+describe.skip('Router', function() {
   
   describe('two simple routes', function() {
     

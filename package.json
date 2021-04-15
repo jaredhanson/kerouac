@@ -40,7 +40,8 @@
     "merge-descriptors": "1.x.x",
     "mkdirp": "0.5.x",
     "path-to-regexp": "0.1.7",
-    "setprototypeof": "1.x.x"
+    "setprototypeof": "1.x.x",
+    "utils-merge": "^1.0.1"
   },
   "devDependencies": {
     "make-node": "0.3.x",
