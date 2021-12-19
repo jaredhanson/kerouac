@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.3] - 2018-09-23
 
 ## [0.1.2] - 2018-09-21
+### Changed
+- Added `manifest()` to middleware used implicitly by application.
 
 ## [0.1.1] - 2018-09-17
 
