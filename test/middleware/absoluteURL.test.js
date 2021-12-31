@@ -8,7 +8,7 @@ describe('middleware/absoluteURL', function() {
     it('should leave pretty url', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return undefined; } }
+      page.app = { get: function() { return undefined; } }
       page.url = '/home/';
     
       middleware(page, function(err) {
@@ -22,7 +22,7 @@ describe('middleware/absoluteURL', function() {
     it('should leave ugly url', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return undefined; } }
+      page.app = { get: function() { return undefined; } }
       page.url = '/home.xml';
     
       middleware(page, function(err) {
@@ -36,7 +36,7 @@ describe('middleware/absoluteURL', function() {
     it('should leave pretty nested url', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return undefined; } }
+      page.app = { get: function() { return undefined; } }
       page.url = '/2000/01/01/hello/';
     
       middleware(page, function(err) {
@@ -50,7 +50,7 @@ describe('middleware/absoluteURL', function() {
     it('should leave ugly nested url', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return undefined; } }
+      page.app = { get: function() { return undefined; } }
       page.url = '/2000/01/01/hello.xml';
     
       middleware(page, function(err) {
@@ -64,7 +64,7 @@ describe('middleware/absoluteURL', function() {
     it('should join base path and path of pretty url', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return undefined; } }
+      page.app = { get: function() { return undefined; } }
       page.basePath = '/blog';
       page.url = '/hello/';
     
@@ -79,7 +79,7 @@ describe('middleware/absoluteURL', function() {
     it('should join base path and path of ugly url', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return undefined; } }
+      page.app = { get: function() { return undefined; } }
       page.basePath = '/blog';
       page.url = '/hello.html';
     
@@ -94,7 +94,7 @@ describe('middleware/absoluteURL', function() {
     it('should join base path and path of pretty nested url', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return undefined; } }
+      page.app = { get: function() { return undefined; } }
       page.basePath = '/blog';
       page.url = '/2000/01/01/hello/';
     
@@ -109,7 +109,7 @@ describe('middleware/absoluteURL', function() {
     it('should join base path and path of ugly nested url', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return undefined; } }
+      page.app = { get: function() { return undefined; } }
       page.basePath = '/blog';
       page.url = '/2000/01/01/hello.xml';
     
@@ -129,7 +129,7 @@ describe('middleware/absoluteURL', function() {
     it('should leave path', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return 'http://www.example.com/'; } }
+      page.app = { get: function() { return 'http://www.example.com/'; } }
       page.url = '/home.html';
     
       middleware(page, function(err) {
@@ -143,7 +143,7 @@ describe('middleware/absoluteURL', function() {
     it('should join base path and path', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return 'http://www.example.com/'; } }
+      page.app = { get: function() { return 'http://www.example.com/'; } }
       page.basePath = '/blog';
       page.url = '/hello.html';
     
@@ -158,7 +158,7 @@ describe('middleware/absoluteURL', function() {
     it('should join base path and nested path', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return 'http://www.example.com/'; } }
+      page.app = { get: function() { return 'http://www.example.com/'; } }
       page.basePath = '/blog';
       page.url = '/2000/01/01/happy-new-year.html';
     
@@ -178,7 +178,7 @@ describe('middleware/absoluteURL', function() {
     it('should leave path', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return 'http://www.example.com/~foo'; } }
+      page.app = { get: function() { return 'http://www.example.com/~foo'; } }
       page.url = '/home.html';
     
       middleware(page, function(err) {
@@ -192,7 +192,7 @@ describe('middleware/absoluteURL', function() {
     it('should join base path and path', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return 'http://www.example.com/~foo'; } }
+      page.app = { get: function() { return 'http://www.example.com/~foo'; } }
       page.basePath = '/blog';
       page.url = '/hello.html';
     
@@ -207,7 +207,7 @@ describe('middleware/absoluteURL', function() {
     it('should join base path and nested path', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return 'http://www.example.com/~foo'; } }
+      page.app = { get: function() { return 'http://www.example.com/~foo'; } }
       page.basePath = '/blog';
       page.url = '/2000/01/01/happy-new-year.html';
     
@@ -227,7 +227,7 @@ describe('middleware/absoluteURL', function() {
     it('should leave path', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return 'http://www.example.com/~foo/'; } }
+      page.app = { get: function() { return 'http://www.example.com/~foo/'; } }
       page.url = '/home.html';
     
       middleware(page, function(err) {
@@ -241,7 +241,7 @@ describe('middleware/absoluteURL', function() {
     it('should join base path and path', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return 'http://www.example.com/~foo/'; } }
+      page.app = { get: function() { return 'http://www.example.com/~foo/'; } }
       page.basePath = '/blog';
       page.url = '/hello.html';
     
@@ -256,7 +256,7 @@ describe('middleware/absoluteURL', function() {
     it('should join base path and nested path', function(done) {
       var middleware = absoluteURL();
       var page = {};
-      page.site = { get: function() { return 'http://www.example.com/~foo/'; } }
+      page.app = { get: function() { return 'http://www.example.com/~foo/'; } }
       page.basePath = '/blog';
       page.url = '/2000/01/01/happy-new-year.html';
     
