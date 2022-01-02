@@ -18,7 +18,7 @@ describe('kerouac', function() {
     expect(kerouac.render).to.be.a('function');
   });
   
-  describe('newly initialized site', function() {
+  describe('createApplication', function() {
     var site = kerouac();
     
     it('should expose content and assets as convience for common sections', function() {
@@ -33,22 +33,9 @@ describe('kerouac', function() {
       expect(site.get('output')).to.equal(process.cwd() + '/www');
     });
     
-    it('should parse YAML front matter', function() {
-      var yaml = "layout: 'yaml'\n"
-               + "title: 'Hello YAML'\n";
-      
-      var data = site.fm(yaml);
-      expect(data.layout).to.equal('yaml');
-      expect(data.title).to.equal('Hello YAML');
-    });
     
-    it('should parse JSON front matter', function() {
-      var json = "{ 'layout': 'json', 'title': 'Hello JSON' }"
-      
-      var data = site.fm(json);
-      expect(data.layout).to.equal('json');
-      expect(data.title).to.equal('Hello JSON');
-    });
+    
+    
     
     it('should not parse empty front matter', function() {
       var empty = "";
