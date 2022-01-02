@@ -25,7 +25,22 @@ describe('application', function() {
         layout: 'json',
         title: 'Hello JSON'
       });
-    });
+    }); // should parse JSON front matter
+    
+    it('should not parse empty front matter', function() {
+      var str = '';
+      
+      var data = site.fm(str);
+      expect(data).to.be.undefined;
+    }); // should not parse empty front matter
+    
+    it('should throw when parsing invalid front matter', function() {
+      var str = 'beep boop';
+      
+      expect(function() {
+        site.fm(str);
+      }).to.throw(SyntaxError);
+    }); // should throw when parsing invalid front matter
     
   }); // #fm
   

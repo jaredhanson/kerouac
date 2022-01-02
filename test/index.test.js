@@ -37,20 +37,9 @@ describe('kerouac', function() {
     
     
     
-    it('should not parse empty front matter', function() {
-      var empty = "";
-      
-      var data = site.fm(empty);
-      expect(data).to.be.undefined;
-    });
     
-    it('should throw exception when parsing invalid front matter', function() {
-      var unknown = "fubar"
-      
-      expect(function() {
-        site.fm(unknown);
-      }).to.throw(SyntaxError);
-    });
+    
+    
     
     it('should highlight syntax', function() {
       var code = "function foo() {};"
