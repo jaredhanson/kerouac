@@ -83,8 +83,8 @@ describe('kerouac', function() {
       });
     
       it('should internally register foo engine', function() {
-        expect(site._engines['.foo'].renderFile).to.be.a('function')
-        expect(site._engines['.foo'].render).to.be.undefined
+        expect(site.engines['.foo'].renderFile).to.be.a('function')
+        expect(site.engines['.foo'].render).to.be.undefined
       });
     });
     
@@ -94,8 +94,8 @@ describe('kerouac', function() {
       });
       
       it('should internally register bar engine', function() {
-        expect(site._engines['.bar'].renderFile).to.be.a('function')
-        expect(site._engines['.bar'].render).to.be.undefined
+        expect(site.engines['.bar'].renderFile).to.be.a('function')
+        expect(site.engines['.bar'].render).to.be.undefined
       });
     });
     
@@ -108,9 +108,9 @@ describe('kerouac', function() {
       site.engine('foo', engine, { foo: 'bar' });
     
       it('should internally register foo engine', function() {
-        expect(site._engines['.foo'].renderFile).to.be.a('function')
-        expect(site._engines['.foo'].render).to.be.a('function')
-        expect(site._engines['.foo'].options['foo']).to.equal('bar')
+        expect(site.engines['.foo'].renderFile).to.be.a('function')
+        expect(site.engines['.foo'].render).to.be.a('function')
+        expect(site.engines['.foo'].options['foo']).to.equal('bar')
       });
     });
     
@@ -123,9 +123,9 @@ describe('kerouac', function() {
       site.engine('foo', engine, { foo: 'bar' });
     
       it('should internally register foo engine', function() {
-        expect(site._engines['.foo'].renderFile).to.be.a('function')
-        expect(site._engines['.foo'].render).to.be.a('function')
-        expect(site._engines['.foo'].options['foo']).to.equal('bar')
+        expect(site.engines['.foo'].renderFile).to.be.a('function')
+        expect(site.engines['.foo'].render).to.be.a('function')
+        expect(site.engines['.foo'].options['foo']).to.equal('bar')
       });
     });
     
