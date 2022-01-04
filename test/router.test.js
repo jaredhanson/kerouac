@@ -1,4 +1,4 @@
-var Router = require('../lib/router');
+var Router = require('../lib/router/index');
 
 
 describe.skip('Router', function() {
