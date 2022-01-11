@@ -133,10 +133,6 @@ describe('application', function() {
       var app = kerouac();
       app.engine('md', {
         render: function(str, options, callback) {
-          console.log('md render...');
-          console.log(str);
-          console.log(options);
-          
           process.nextTick(function() {
             callback(null, '<xhtml>');
           });
@@ -146,8 +142,7 @@ describe('application', function() {
         }
       });
       
-      //app.render('robot', { _locals: { say: 'beep boop' } }, function(err, out) {
-      app.render({ content: '# Hello' }, { markup: 'md' }, function(err, out) {
+      app.convert({ content: '# Hello' }, { markup: 'md' }, function(err, out) {
         if (err) { return done(err); }
         expect(out).to.equal('<xhtml>');
         done();
