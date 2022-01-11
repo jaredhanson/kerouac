@@ -8,7 +8,7 @@ describe('application', function() {
     
     it('should parse YAML front matter', function() {
       var str = "layout: 'yaml'\n"
-               + "title: 'Hello YAML'\n";
+              + "title: 'Hello YAML'\n";
       
       var fm = site.fm(str);
       expect(fm).to.deep.equal({
@@ -51,8 +51,7 @@ describe('application', function() {
       
       var html = site.highlight(str);
       expect(html).to.equal('<span class=\"function\"><span class=\"keyword\">function</span> <span class=\"title\">foo</span><span class=\"params\">()</span> </span>{};');
-    });
-    
+    }); // should highlight syntax
     
   }); // #highlight
   
