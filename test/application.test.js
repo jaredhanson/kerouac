@@ -111,6 +111,49 @@ describe('application', function() {
       });
     }); // should render with page locals
     
-  });
+    it('should render content', function(done) {
+      var Layout = function(name, options) {
+        expect(name).to.equal('robot');
+        this.path = [ this.root, name ].join('/');
+      };
+      Layout.prototype.render = function(options, callback) {
+        expect(options.say).to.equal('beep boop');
+        process.nextTick(function() {
+          callback(null, '<html>');
+        });
+      };
+      
+      var app = $require('../lib/application', {
+        './layout': Layout
+      });
+      var kerouac = $require('..', {
+        './application': app
+      });
+      
+      var app = kerouac();
+      app.engine('md', {
+        render: function(str, options, callback) {
+          console.log('md render...');
+          console.log(str);
+          console.log(options);
+          
+          process.nextTick(function() {
+            callback(null, '<xhtml>');
+          });
+        },
+        // FIXME: Shouldn't need to have this function here
+        renderFile: function() {
+        }
+      });
+      
+      //app.render('robot', { _locals: { say: 'beep boop' } }, function(err, out) {
+      app.render({ content: '# Hello' }, { markup: 'md' }, function(err, out) {
+        if (err) { return done(err); }
+        expect(out).to.equal('<xhtml>');
+        done();
+      }, false);
+    }); // should render content
+    
+  }); // #render
   
 }); // application
