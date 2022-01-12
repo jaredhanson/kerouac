@@ -142,7 +142,7 @@ describe('application', function() {
         }
       });
       
-      app.convert({ content: '# Hello' }, { markup: 'md' }, function(err, out) {
+      app.convert({ content: '# Hello' }, 'md', function(err, out) {
         if (err) { return done(err); }
         expect(out).to.equal('<xhtml>');
         done();
