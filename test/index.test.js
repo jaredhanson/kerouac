@@ -20,7 +20,6 @@ describe('kerouac', function() {
     var site = kerouac();
     
     it('should expose content and assets as convience for common sections', function() {
-      expect(site.content).to.be.a('function');
       expect(site.assets).to.be.a('function');
       expect(site.assets).to.equal(site.static);
     });
