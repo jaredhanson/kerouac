@@ -19,11 +19,6 @@ describe('kerouac', function() {
   describe('createApplication', function() {
     var site = kerouac();
     
-    it('should expose content and assets as convience for common sections', function() {
-      expect(site.assets).to.be.a('function');
-      expect(site.assets).to.equal(site.static);
-    });
-    
     it('should have default settings', function() {
       expect(site.get('layout engine')).to.equal('ejs');
       expect(site.get('layouts')).to.equal(process.cwd() + '/layouts');
