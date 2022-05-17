@@ -14,7 +14,6 @@ describe('kerouac', function() {
     expect(kerouac.copy).to.be.a('function');
     expect(kerouac.prettyURL).to.be.a('function');
     expect(kerouac.prettyURLs).to.equal(kerouac.prettyURL);
-    expect(kerouac.render).to.be.a('function');
   });
   
   describe('createApplication', function() {
