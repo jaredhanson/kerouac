@@ -9,15 +9,16 @@ describe('middleware/init', function() {
     app.pageext = new Object();
     app.pageext.render = function() {};
     
-    chai.kerouac.use(init(app))
-      .next(function(err, page) {
-        if (err) { return done(err); }
-        expect(page.next).to.be.a('function');
-        expect(page.render).to.be.a('function');
-        expect(page.locals).to.be.an('object');
-        done();
-      })
-      .generate();
+    var middleware = init(app);
+    var page = {};
+    
+    middleware(page, function(err) {
+      if (err) { return done(err); }
+      expect(page.next).to.be.a('function');
+      expect(page.render).to.be.a('function');
+      expect(page.locals).to.be.an('object');
+      done();
+    });
   });
   
 });
