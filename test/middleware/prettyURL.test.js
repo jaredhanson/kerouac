@@ -11,8 +11,8 @@ describe('middleware/prettyURL', function() {
     middleware(page, function(err) {
       if (err) { return done(err); }
       expect(page.path).to.equal('/foo.html');
-      expect(page.url).to.equal('/foo/');
       expect(page.outputPath).to.equal('/foo/index.html');
+      expect(page.url).to.equal('/foo/');
       done();
     });
   });
@@ -25,8 +25,8 @@ describe('middleware/prettyURL', function() {
     middleware(page, function(err) {
       if (err) { return done(err); }
       expect(page.path).to.equal('/foo/index.html');
-      expect(page.url).to.equal('/foo/');
       expect(page.outputPath).to.equal('/foo/index.html');
+      expect(page.url).to.equal('/foo/');
       done();
     });
   });
@@ -40,6 +40,7 @@ describe('middleware/prettyURL', function() {
       if (err) { return done(err); }
       expect(page.path).to.equal('/foo.xml');
       expect(page.outputPath).to.be.undefined;
+      expect(page.url).to.be.undefined;
       done();
     });
   });
