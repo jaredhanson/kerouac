@@ -55,7 +55,7 @@ describe('middleware/prettyURL', function() {
       if (err) { return done(err); }
       expect(page.path).to.equal('/foo.html');
       expect(page.outputPath).to.equal('/blog/foo/index.html');
-      expect(page.url).to.equal('/foo/');
+      expect(page.url).to.equal('/blog/foo/');
       done();
     });
   });
@@ -70,7 +70,7 @@ describe('middleware/prettyURL', function() {
       if (err) { return done(err); }
       expect(page.path).to.equal('/2017/09/03/foo.html');
       expect(page.outputPath).to.equal('/blog/2017/09/03/foo/index.html');
-      expect(page.url).to.equal('/2017/09/03/foo/');
+      expect(page.url).to.equal('/blog/2017/09/03/foo/');
       done();
     });
   });
@@ -85,7 +85,7 @@ describe('middleware/prettyURL', function() {
       if (err) { return done(err); }
       expect(page.path).to.equal('/foo/index.html');
       expect(page.outputPath).to.equal('/blog/foo/index.html');
-      expect(page.url).to.equal('/foo/');
+      expect(page.url).to.equal('/blog/foo/');
       done();
     });
   });
