@@ -3,7 +3,7 @@ var prettyURL = require('../../lib/middleware/prettyURL');
 
 describe('middleware/prettyURL', function() {
   
-  it('should make ugly URLs pretty', function(done) {
+  it('should make ugly paths into pretty URLs', function(done) {
     var middleware = prettyURL();
     var page = {};
     page.path = '/foo.html';
@@ -17,7 +17,7 @@ describe('middleware/prettyURL', function() {
     });
   });
   
-  it('should make index URLs pretty', function(done) {
+  it('should preserve already pretty paths as pretty URLs', function(done) {
     var middleware = prettyURL();
     var page = {};
     page.path = '/foo/index.html';
@@ -31,7 +31,7 @@ describe('middleware/prettyURL', function() {
     });
   });
   
-  it('should not make other exensions pretty', function(done) {
+  it('should not make non-HTML file types into pretty URLs', function(done) {
     var middleware = prettyURL();
     var page = {};
     page.path = '/foo.xml';
@@ -44,6 +44,52 @@ describe('middleware/prettyURL', function() {
       done();
     });
   });
+  
+  it('should make ugly paths from base path into pretty URLs', function(done) {
+    var middleware = prettyURL();
+    var page = {};
+    page.basePath = '/blog'
+    page.path = '/foo.html';
+  
+    middleware(page, function(err) {
+      if (err) { return done(err); }
+      expect(page.path).to.equal('/foo.html');
+      expect(page.outputPath).to.equal('/blog/foo/index.html');
+      expect(page.url).to.equal('/foo/');
+      done();
+    });
+  });
+  
+  it('should preserve already pretty paths from base path as pretty URLs', function(done) {
+    var middleware = prettyURL();
+    var page = {};
+    page.basePath = '/blog'
+    page.path = '/foo/index.html';
+  
+    middleware(page, function(err) {
+      if (err) { return done(err); }
+      expect(page.path).to.equal('/foo/index.html');
+      expect(page.outputPath).to.equal('/blog/foo/index.html');
+      expect(page.url).to.equal('/foo/');
+      done();
+    });
+  });
+  
+  it('should not make non-HTML file types from base path into pretty URLs', function(done) {
+    var middleware = prettyURL();
+    var page = {};
+    page.basePath = '/blog'
+    page.path = '/foo.xml';
+  
+    middleware(page, function(err) {
+      if (err) { return done(err); }
+      expect(page.path).to.equal('/foo.xml');
+      expect(page.outputPath).to.be.undefined;
+      expect(page.url).to.be.undefined;
+      done();
+    });
+  });
+  
   
   describe('with ext option', function() {
     
@@ -136,50 +182,6 @@ describe('middleware/prettyURL', function() {
   }); // with ext and index option
   
   describe('base path handling', function() {
-    
-    it('should make ugly URLs pretty', function(done) {
-      var middleware = prettyURL();
-      var page = {};
-      page.basePath = '/blog'
-      page.path = '/foo.html';
-    
-      middleware(page, function(err) {
-        if (err) { return done(err); }
-        expect(page.path).to.equal('/foo.html');
-        expect(page.url).to.equal('/foo/');
-        expect(page.outputPath).to.equal('/blog/foo/index.html');
-        done();
-      });
-    });
-    
-    it('should make index URLs pretty', function(done) {
-      var middleware = prettyURL();
-      var page = {};
-      page.basePath = '/blog'
-      page.path = '/foo/index.html';
-    
-      middleware(page, function(err) {
-        if (err) { return done(err); }
-        expect(page.path).to.equal('/foo/index.html');
-        expect(page.url).to.equal('/foo/');
-        expect(page.outputPath).to.equal('/blog/foo/index.html');
-        done();
-      });
-    });
-    
-    it('should not make other exensions pretty', function(done) {
-      var middleware = prettyURL();
-      var page = {};
-      page.basePath = '/blog'
-      page.path = '/foo.xml';
-    
-      middleware(page, function(err) {
-        if (err) { return done(err); }
-        expect(page.path).to.equal('/foo.xml');
-        expect(page.outputPath).to.be.undefined;
-        done();
-      });
-    });
     
     it('should make ugly nested URLs pretty', function(done) {
       var middleware = prettyURL();
