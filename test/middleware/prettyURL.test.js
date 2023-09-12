@@ -144,6 +144,7 @@ describe('middleware/prettyURL', function() {
         if (err) { return done(err); }
         expect(page.path).to.equal('/foo.xml');
         expect(page.outputPath).to.be.undefined;
+        expect(page.url).to.be.undefined;
         done();
       });
     });
