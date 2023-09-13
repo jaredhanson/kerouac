@@ -143,8 +143,7 @@ describe('middleware/absoluteURL', function() {
     });
   });
   
-  // WIP:
-  it('should preserve path when base URL is set to domain and directory with trailing slash', function(done) {
+  it('should set URL and full URL when base URL is set to domain and directory with trailing slash', function(done) {
     var middleware = absoluteURL();
     var page = {};
     page.app = { get: function() { return 'http://www.example.com/~foo/'; } }
@@ -153,6 +152,7 @@ describe('middleware/absoluteURL', function() {
     middleware(page, function(err) {
       if (err) { return done(err); }
       expect(page.path).to.equal('/home.html');
+      expect(page.url).to.equal('/~foo/home.html');
       expect(page.fullURL).to.equal('http://www.example.com/~foo/home.html');
       done();
     });
