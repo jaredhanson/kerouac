@@ -18,4 +18,20 @@ describe('middleware/copy', function() {
     });
   });
   
+  it('should error when file does not exist', function(done) {
+    var middleware = copy('test/data/hello');
+    var page = {};
+    page.params = [ 'hola.txt' ];
+    page.copy = function(name) {
+      done(new Error('should not call page#copy'));
+    }
+  
+    middleware(page, function(err) {
+      expect(err).to.be.an.instanceOf(Error);
+      expect(err.message).to.equal("no such file 'test/data/hello/hola.txt'");
+      expect(err.code).to.equal('ENOENT');
+      done();
+    });
+  });
+  
 });
