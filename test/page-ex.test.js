@@ -43,7 +43,7 @@ describe('Page extensions', function() {
         expect(str).to.equal('<p>Hello</p>');
         expect(page.app.render.getCall(0).args[0]).to.equal('user');
         expect(page.app.render.getCall(0).args[1]).to.deep.equal({
-          user: 'Tobi',
+          name: 'Tobi',
           _locals: undefined
         });
         done();
