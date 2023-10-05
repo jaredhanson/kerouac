@@ -1,5 +1,6 @@
 var $require = require('proxyquire');
 var kerouac = require('..');
+var path = require('path');
 
 
 describe('application', function() {
@@ -58,10 +59,58 @@ describe('application', function() {
   
   describe('#render', function() {
     
+    it('should render layout', function(done) {
+      var app = kerouac();
+      app.set('layouts', path.resolve(__dirname, 'layouts'));
+      
+      app.render('hello', function(err, out) {
+        if (err) { return done(err); }
+        expect(out).to.equal('<p>Hello.<p>\n');
+        done();
+      });
+    }); // should render
+    
+    it('should render layout with options', function(done) {
+      var app = kerouac();
+      app.set('layouts', path.resolve(__dirname, 'layouts'));
+      
+      app.render('hello-name', { name: 'Alice' }, function(err, out) {
+        if (err) { return done(err); }
+        expect(out).to.equal('<p>Hello Alice.<p>\n');
+        done();
+      });
+    }); // should render layout with options
+    
+    it('should render layout with page locals', function(done) {
+      var app = kerouac();
+      app.set('layouts', path.resolve(__dirname, 'layouts'));
+      
+      app.render('hello-name', { _locals: { name: 'Alice' } }, function(err, out) {
+        if (err) { return done(err); }
+        expect(out).to.equal('<p>Hello Alice.<p>\n');
+        done();
+      });
+    }); // should render layout with page locals
+    
+    it('should render layout with app locals', function(done) {
+      var app = kerouac();
+      app.set('layouts', path.resolve(__dirname, 'layouts'));
+      app.locals.name = 'Alice';
+      
+      app.render('hello-name', function(err, out) {
+        if (err) { return done(err); }
+        expect(out).to.equal('<p>Hello Alice.<p>\n');
+        done();
+      });
+    }); // should render layout with page locals
+    
+    
+    
     it('should render', function(done) {
       var Layout = function(name, options) {
         expect(name).to.equal('robot');
         this.path = [ this.root, name ].join('/');
+        console.log(this.path);
       };
       Layout.prototype.render = function(options, callback) {
         process.nextTick(function() {
