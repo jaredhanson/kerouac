@@ -9,6 +9,57 @@ describe('Page extensions', function() {
   
   describe('#render', function() {
     
+    it('should render layout and write page', function(done) {
+      var app = new function(){};
+      app.render = sinon.stub().yieldsAsync(null, '<p>Hello</p>');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+        
+      page.write = sinon.spy();
+      page.end = function() {
+        expect(page.app.render.getCall(0).args[0]).to.equal('index');
+        expect(page.app.render.getCall(0).args[1]).to.deep.equal({
+          name: 'Tobi',
+          _locals: undefined
+        });
+        expect(page.write.getCall(0).args[0]).to.equal('<p>Hello</p>');
+        done();
+      };
+      page.next = function() {
+        done('Page#next should not be called');
+      };
+      
+      page.render('index', { name: 'Tobi' });
+    }); // should render layout and write page
+    
+    it('should render layout with locals and write page', function(done) {
+      var app = new function(){};
+      app.render = sinon.stub().yieldsAsync(null, '<p>Hello</p>');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+        
+      page.write = sinon.spy();
+      page.end = function() {
+        expect(page.app.render.getCall(0).args[0]).to.equal('index');
+        expect(page.app.render.getCall(0).args[1]).to.deep.equal({
+          _locals: undefined
+        });
+        expect(page.write.getCall(0).args[0]).to.equal('<p>Hello</p>');
+        done();
+      };
+      page.next = function() {
+        done('Page#next should not be called');
+      };
+      
+      page.render('index');
+    }); // should render layout with locals and write page
+    
     it('should render layout and invoke callback', function(done) {
       var app = new function(){};
       app.render = sinon.stub().yieldsAsync(null, '<p>Hello</p>');
