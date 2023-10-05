@@ -60,6 +60,28 @@ describe('Page extensions', function() {
       page.render('index');
     }); // should render layout with locals and write page
     
+    it('should render layout and next with error', function(done) {
+      var app = new function(){};
+      app.render = sinon.stub().yieldsAsync(new Error('something went wrong'));
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+        
+      page.write = sinon.spy();
+      page.end = function() {
+        done('Page#end should not be called');
+      };
+      page.next = function(err) {
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('something went wrong');
+        done();
+      };
+      
+      page.render('index', { name: 'Tobi' });
+    }); // should render layout and next with error
+    
     it('should render layout and invoke callback', function(done) {
       var app = new function(){};
       app.render = sinon.stub().yieldsAsync(null, '<p>Hello</p>');
