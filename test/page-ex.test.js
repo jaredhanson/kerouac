@@ -123,6 +123,22 @@ describe('Page extensions', function() {
       });
     }); // should render layout with locals and invoke callback
     
+    it('should render layout and invoke callback with error', function(done) {
+      var app = new function(){};
+      app.render = sinon.stub().yieldsAsync(new Error('something went wrong'));
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+      
+      page.render('index', function(err, str) {
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('something went wrong');
+        done();
+      });
+    }); // should render layout and invoke callback with error
+    
   }); // #render
   
 });
