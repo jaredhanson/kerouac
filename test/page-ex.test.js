@@ -22,7 +22,6 @@ describe('Page extensions', function() {
       page.end = function() {
         expect(page.app.render.getCall(0).args[0]).to.equal('index');
         expect(page.app.render.getCall(0).args[1]).to.deep.equal({
-          name: 'Tobi',
           _locals: undefined
         });
         expect(page.write.getCall(0).args[0]).to.equal('<p>Hello</p>');
@@ -32,7 +31,7 @@ describe('Page extensions', function() {
         done('Page#next should not be called');
       };
       
-      page.render('index', { name: 'Tobi' });
+      page.render('index');
     }); // should render layout and write page
     
     it('should render layout with locals and write page', function(done) {
@@ -48,6 +47,7 @@ describe('Page extensions', function() {
       page.end = function() {
         expect(page.app.render.getCall(0).args[0]).to.equal('index');
         expect(page.app.render.getCall(0).args[1]).to.deep.equal({
+          name: 'Tobi',
           _locals: undefined
         });
         expect(page.write.getCall(0).args[0]).to.equal('<p>Hello</p>');
@@ -57,7 +57,7 @@ describe('Page extensions', function() {
         done('Page#next should not be called');
       };
       
-      page.render('index');
+      page.render('index', { name: 'Tobi' });
     }); // should render layout with locals and write page
     
     it('should render layout and next with error', function(done) {
@@ -79,7 +79,7 @@ describe('Page extensions', function() {
         done();
       };
       
-      page.render('index', { name: 'Tobi' });
+      page.render('index');
     }); // should render layout and next with error
     
     it('should render layout and invoke callback', function(done) {
@@ -140,5 +140,10 @@ describe('Page extensions', function() {
     }); // should render layout and invoke callback with error
     
   }); // #render
+  
+  
+  describe('#compile', function() {
+    
+  }); // #compile
   
 });
