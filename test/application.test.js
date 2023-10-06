@@ -136,7 +136,7 @@ describe('application', function() {
         }
       });
       
-      app.convert({ content: '# Hello' }, 'md', function(err, out) {
+      app.compile({ content: '# Hello' }, 'md', function(err, out) {
         if (err) { return done(err); }
         expect(out).to.equal('<xhtml>');
         done();
@@ -144,5 +144,19 @@ describe('application', function() {
     }); // should render content
     
   }); // #render
+  
+  describe('#compile', function() {
+    
+    it('should compile markdown', function(done) {
+      var app = kerouac();
+      
+      app.compile('Hello', 'md', function(err, out) {
+        if (err) { return done(err); }
+        expect(out).to.equal('<p>Hello</p>\n');
+        done();
+      });
+    }); // should compile markdown
+    
+  });
   
 }); // application
