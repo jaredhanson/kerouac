@@ -68,7 +68,7 @@ describe('application', function() {
         expect(out).to.equal('<p>Hello.<p>\n');
         done();
       });
-    }); // should render
+    }); // should render layout
     
     it('should render layout with options', function(done) {
       var app = kerouac();
@@ -102,63 +102,8 @@ describe('application', function() {
         expect(out).to.equal('<p>Hello Alice.<p>\n');
         done();
       });
-    }); // should render layout with page locals
+    }); // should render layout with app locals
     
-    
-    
-    it('should render', function(done) {
-      var Layout = function(name, options) {
-        expect(name).to.equal('robot');
-        this.path = [ this.root, name ].join('/');
-        console.log(this.path);
-      };
-      Layout.prototype.render = function(options, callback) {
-        process.nextTick(function() {
-          callback(null, '<html>');
-        });
-      };
-      
-      var app = $require('../lib/application', {
-        './layout': Layout
-      });
-      var kerouac = $require('..', {
-        './application': app
-      });
-      
-      var app = kerouac();
-      app.render('robot', function(err, out) {
-        if (err) { return done(err); }
-        expect(out).to.equal('<html>');
-        done();
-      });
-    }); // should render
-    
-    it('should render with page locals', function(done) {
-      var Layout = function(name, options) {
-        expect(name).to.equal('robot');
-        this.path = [ this.root, name ].join('/');
-      };
-      Layout.prototype.render = function(options, callback) {
-        expect(options.say).to.equal('beep boop');
-        process.nextTick(function() {
-          callback(null, '<html>');
-        });
-      };
-      
-      var app = $require('../lib/application', {
-        './layout': Layout
-      });
-      var kerouac = $require('..', {
-        './application': app
-      });
-      
-      var app = kerouac();
-      app.render('robot', { _locals: { say: 'beep boop' } }, function(err, out) {
-        if (err) { return done(err); }
-        expect(out).to.equal('<html>');
-        done();
-      });
-    }); // should render with page locals
     
     it('should render content', function(done) {
       var Layout = function(name, options) {
