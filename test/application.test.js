@@ -104,53 +104,14 @@ describe('application', function() {
       });
     }); // should render layout with app locals
     
-    
-    it('should render content', function(done) {
-      var Layout = function(name, options) {
-        expect(name).to.equal('robot');
-        this.path = [ this.root, name ].join('/');
-      };
-      Layout.prototype.render = function(options, callback) {
-        expect(options.say).to.equal('beep boop');
-        process.nextTick(function() {
-          callback(null, '<html>');
-        });
-      };
-      
-      var app = $require('../lib/application', {
-        './layout': Layout
-      });
-      var kerouac = $require('..', {
-        './application': app
-      });
-      
-      var app = kerouac();
-      app.engine('md', {
-        render: function(str, options, callback) {
-          process.nextTick(function() {
-            callback(null, '<xhtml>');
-          });
-        },
-        // FIXME: Shouldn't need to have this function here
-        renderFile: function() {
-        }
-      });
-      
-      app.compile({ content: '# Hello' }, 'md', function(err, out) {
-        if (err) { return done(err); }
-        expect(out).to.equal('<xhtml>');
-        done();
-      }, false);
-    }); // should render content
-    
   }); // #render
   
-  describe('#compile', function() {
+  describe('#convert', function() {
     
     it('should compile markdown', function(done) {
       var app = kerouac();
       
-      app.compile('Hello', 'md', function(err, out) {
+      app.convert('Hello', 'md', function(err, out) {
         if (err) { return done(err); }
         expect(out).to.equal('<p>Hello</p>\n');
         done();
