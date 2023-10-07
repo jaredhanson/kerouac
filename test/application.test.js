@@ -118,6 +118,16 @@ describe('application', function() {
       });
     }); // should compile markdown
     
-  });
+    it('should compile markdown prefixed with dot', function(done) {
+      var app = kerouac();
+      
+      app.convert('Hello', '.md', function(err, out) {
+        if (err) { return done(err); }
+        expect(out).to.equal('<p>Hello</p>\n');
+        done();
+      });
+    }); // should compile markdown prefixed with dot
+    
+  }); // #convert
   
 }); // application
