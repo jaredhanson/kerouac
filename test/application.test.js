@@ -133,7 +133,7 @@ describe('application', function() {
       
       app.convert('Hello', 'md', 'txt', function(err, out) {
         if (err) { return done(err); }
-        expect(out).to.equal('TODO: md2txt');
+        expect(out).to.equal('Hello\n');
         done();
       });
     }); // should compile markdown
@@ -143,7 +143,7 @@ describe('application', function() {
       
       app.convert('Hello', '.md', '.txt', function(err, out) {
         if (err) { return done(err); }
-        expect(out).to.equal('TODO: md2txt');
+        expect(out).to.equal('Hello\n');
         done();
       });
     }); // should compile markdown using dot-prefixed extension notation

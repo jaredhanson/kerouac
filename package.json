@@ -37,6 +37,7 @@
     "headmatter": "0.0.2",
     "highlight.js": "11.x.x",
     "js-yaml": "3.x.x",
+    "marked": "^0.3.19",
     "marked-engine": "0.2.x",
     "merge-descriptors": "1.x.x",
     "mkdirp": "0.5.x",
