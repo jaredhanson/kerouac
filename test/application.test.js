@@ -148,6 +148,16 @@ describe('application', function() {
       });
     }); // should compile markdown using dot-prefixed extension notation
     
+    it('should compile markdown to excerpt text', function(done) {
+      var app = kerouac();
+      
+      app.convert('Beep.\n\nBeep boop.', 'md', 'txt', { excerpt: true }, function(err, out) {
+        if (err) { return done(err); }
+        expect(out).to.equal('Hello\n');
+        done();
+      });
+    }); // should compile markdown
+    
   }); // #convert
   
 }); // application
