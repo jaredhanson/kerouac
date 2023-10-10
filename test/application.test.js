@@ -118,7 +118,7 @@ describe('application', function() {
       });
     }); // should compile markdown
     
-    it('should compile markdown prefixed with dot', function(done) {
+    it('should compile markdown using dot-prefixed extension notation', function(done) {
       var app = kerouac();
       
       app.convert('Hello', '.md', function(err, out) {
@@ -126,7 +126,27 @@ describe('application', function() {
         expect(out).to.equal('<p>Hello</p>\n');
         done();
       });
-    }); // should compile markdown prefixed with dot
+    }); // should compile markdown using dot-prefixed extension notation
+    
+    it('should compile markdown to text', function(done) {
+      var app = kerouac();
+      
+      app.convert('Hello', 'md', 'txt', function(err, out) {
+        if (err) { return done(err); }
+        expect(out).to.equal('TODO: md2txt');
+        done();
+      });
+    }); // should compile markdown
+    
+    it('should compile markdown to text using dot-prefixed extension notation', function(done) {
+      var app = kerouac();
+      
+      app.convert('Hello', '.md', '.txt', function(err, out) {
+        if (err) { return done(err); }
+        expect(out).to.equal('TODO: md2txt');
+        done();
+      });
+    }); // should compile markdown using dot-prefixed extension notation
     
   }); // #convert
   
