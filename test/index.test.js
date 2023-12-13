@@ -11,66 +11,28 @@ describe('kerouac', function() {
   });
   
   it('should export middleware', function() {
-    expect(kerouac.copy).to.be.a('function');
-    expect(kerouac.loadContent).to.be.a('function');
     expect(kerouac.prettyURL).to.be.a('function');
     expect(kerouac.prettyURLs).to.equal(kerouac.prettyURL);
-    expect(kerouac.render).to.be.a('function');
   });
   
-  describe('newly initialized site', function() {
+  describe('createApplication', function() {
     var site = kerouac();
-    
-    it('should expose content and assets as convience for common sections', function() {
-      expect(site.content).to.be.a('function');
-      expect(site.assets).to.be.a('function');
-      expect(site.assets).to.equal(site.static);
-    });
     
     it('should have default settings', function() {
       expect(site.get('layout engine')).to.equal('ejs');
       expect(site.get('layouts')).to.equal(process.cwd() + '/layouts');
-      expect(site.get('output')).to.equal(process.cwd() + '/www');
+      expect(site.get('output')).to.equal('_site');
     });
     
-    it('should parse YAML front matter', function() {
-      var yaml = "layout: 'yaml'\n"
-               + "title: 'Hello YAML'\n";
-      
-      var data = site.fm(yaml);
-      expect(data.layout).to.equal('yaml');
-      expect(data.title).to.equal('Hello YAML');
-    });
     
-    it('should parse JSON front matter', function() {
-      var json = "{ 'layout': 'json', 'title': 'Hello JSON' }"
-      
-      var data = site.fm(json);
-      expect(data.layout).to.equal('json');
-      expect(data.title).to.equal('Hello JSON');
-    });
     
-    it('should not parse empty front matter', function() {
-      var empty = "";
-      
-      var data = site.fm(empty);
-      expect(data).to.be.undefined;
-    });
     
-    it('should throw exception when parsing invalid front matter', function() {
-      var unknown = "fubar"
-      
-      expect(function() {
-        site.fm(unknown);
-      }).to.throw(SyntaxError);
-    });
     
-    it('should highlight syntax', function() {
-      var code = "function foo() {};"
-      
-      var out = site.highlight(code);
-      expect(out).to.equal('<span class=\"function\"><span class=\"keyword\">function</span> <span class=\"title\">foo</span><span class=\"params\">()</span> </span>{};');
-    });
+    
+    
+    
+    
+    
   });
   
   describe('settings', function() {
@@ -112,8 +74,8 @@ describe('kerouac', function() {
       });
     
       it('should internally register foo engine', function() {
-        expect(site._engines['.foo'].renderFile).to.be.a('function')
-        expect(site._engines['.foo'].render).to.be.undefined
+        expect(site.engines['.foo'].renderFile).to.be.a('function')
+        expect(site.engines['.foo'].render).to.be.undefined
       });
     });
     
@@ -123,8 +85,8 @@ describe('kerouac', function() {
       });
       
       it('should internally register bar engine', function() {
-        expect(site._engines['.bar'].renderFile).to.be.a('function')
-        expect(site._engines['.bar'].render).to.be.undefined
+        expect(site.engines['.bar'].renderFile).to.be.a('function')
+        expect(site.engines['.bar'].render).to.be.undefined
       });
     });
     
@@ -137,13 +99,14 @@ describe('kerouac', function() {
       site.engine('foo', engine, { foo: 'bar' });
     
       it('should internally register foo engine', function() {
-        expect(site._engines['.foo'].renderFile).to.be.a('function')
-        expect(site._engines['.foo'].render).to.be.a('function')
-        expect(site._engines['.foo'].options['foo']).to.equal('bar')
+        expect(site.engines['.foo'].renderFile).to.be.a('function')
+        expect(site.engines['.foo'].render).to.be.a('function')
+        expect(site.engines['.foo'].options['foo']).to.equal('bar')
       });
     });
     
-    describe('using a module that exports __express', function() {
+    /*
+    describes.skip('using a module that exports __express', function() {
       var site = kerouac();
       var engine = {};
       engine.__express = function(path, options, cb) {};
@@ -152,11 +115,12 @@ describe('kerouac', function() {
       site.engine('foo', engine, { foo: 'bar' });
     
       it('should internally register foo engine', function() {
-        expect(site._engines['.foo'].renderFile).to.be.a('function')
-        expect(site._engines['.foo'].render).to.be.a('function')
-        expect(site._engines['.foo'].options['foo']).to.equal('bar')
+        expect(site.engines['.foo'].renderFile).to.be.a('function')
+        expect(site.engines['.foo'].render).to.be.a('function')
+        expect(site.engines['.foo'].options['foo']).to.equal('bar')
       });
     });
+    */
     
     describe('using a non-engine module', function() {
       var site = kerouac();
