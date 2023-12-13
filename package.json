@@ -1,6 +1,6 @@
 {
   "name": "kerouac",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Poetic static site generator for Node.js.",
   "keywords": [
     "static",
