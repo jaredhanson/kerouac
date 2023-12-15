@@ -26,6 +26,9 @@
     }
   ],
   "main": "./lib",
+  "bin": {
+    "kerouac": "./bin/kerouac.js"
+  },
   "dependencies": {
     "array-flatten": "^1.1.1",
     "canonical-path": "0.0.2",
@@ -33,6 +36,7 @@
     "debug": "3.x.x",
     "dive": "^0.5.0",
     "diveSync": "0.3.x",
+    "finalhandler": "^1.2.0",
     "functionpool": "0.1.x",
     "headmatter": "0.0.2",
     "highlight.js": "11.x.x",
@@ -42,8 +46,10 @@
     "merge-descriptors": "1.x.x",
     "mkdirp": "0.5.x",
     "path-to-regexp": "0.1.7",
+    "serve-static": "^1.15.0",
     "setprototypeof": "1.x.x",
-    "utils-merge": "^1.0.1"
+    "utils-merge": "^1.0.1",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
     "chai": "2.x.x",
