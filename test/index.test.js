@@ -11,6 +11,17 @@ describe('kerouac', function() {
     expect(site.constructor.name).to.equal('EventEmitter');
   });
   
+  it('should export constructors', function() {
+    expect(kerouac.Router).to.be.a('function');
+  });
+  
+  it('should export sites', function() {
+    expect(kerouac.content).to.be.a('function');
+    expect(kerouac.content.createMapper).to.be.a('function');
+    expect(kerouac.assets).to.be.a('function');
+    expect(kerouac.assets.createMapper).to.be.a('function');
+  });
+  
   it('should export middleware', function() {
     expect(kerouac.canonicalURL).to.be.a('function');
     expect(kerouac.copy).to.be.a('function');
