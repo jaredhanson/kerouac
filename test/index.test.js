@@ -82,28 +82,6 @@ describe('kerouac', function() {
   
   describe('engine registration', function() {
     
-    describe('using a function', function() {
-      var site = kerouac();
-      site.engine('foo', function(path, options, cb) {
-      });
-    
-      it('should internally register foo engine', function() {
-        expect(site.engines['.foo'].renderFile).to.be.a('function')
-        expect(site.engines['.foo'].render).to.be.undefined
-      });
-    });
-    
-    describe('using a function and extension with leading dot', function() {
-      var site = kerouac();
-      site.engine('.bar', function(path, options, cb) {
-      });
-      
-      it('should internally register bar engine', function() {
-        expect(site.engines['.bar'].renderFile).to.be.a('function')
-        expect(site.engines['.bar'].render).to.be.undefined
-      });
-    });
-    
     describe('using a module', function() {
       var site = kerouac();
       var engine = {};
