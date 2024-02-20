@@ -7,10 +7,13 @@ describe('kerouac', function() {
     expect(kerouac).to.be.a('function');
     
     var site = kerouac();
+    expect(site).to.be.a('function');
     expect(site.constructor.name).to.equal('EventEmitter');
   });
   
   it('should export middleware', function() {
+    expect(kerouac.canonicalURL).to.be.a('function');
+    expect(kerouac.copy).to.be.a('function');
     expect(kerouac.prettyURL).to.be.a('function');
     expect(kerouac.prettyURLs).to.equal(kerouac.prettyURL);
   });
