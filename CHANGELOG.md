@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Auto-`require()`'ing of engines expect the module to export a `.__express`
+function, rather than `.renderFile`, for compatibility with existing engines and
+Express conventions.
+
+### Removed
+
+- Removed ability to pass module object containing `renderFile` and `render`
+functions as argument to `app#engine()`.  Plugins that render lightweight markup
+should now be registered via `app#convert()`.
+- Removed "identity" engine used to render static, non-templated HTML files.
+
 ## [0.2.0] - 2023-12-12
 
 ## [0.1.3] - 2018-09-23

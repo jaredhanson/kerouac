@@ -82,7 +82,8 @@ describe('kerouac', function() {
   
   describe('engine registration', function() {
     
-    describe('using a module', function() {
+    /*
+    describe.skip('using a module', function() {
       var site = kerouac();
       var engine = {};
       engine.renderFile = function(path, options, cb) {};
@@ -96,6 +97,7 @@ describe('kerouac', function() {
         expect(site.engines['.foo'].options['foo']).to.equal('bar')
       });
     });
+    */
     
     /*
     describes.skip('using a module that exports __express', function() {
@@ -114,7 +116,7 @@ describe('kerouac', function() {
     });
     */
     
-    describe('using a non-engine module', function() {
+    describe.skip('using a non-engine module', function() {
       var site = kerouac();
       var engine = {};
       

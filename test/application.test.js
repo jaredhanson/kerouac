@@ -13,16 +13,16 @@ describe('application', function() {
       var site = kerouac();
       site.engine('foo', function(path, options, cb) {});
     
-      expect(site.engines['.foo'].renderFile).to.be.a('function')
-      expect(site.engines['.foo'].render).to.be.undefined
+      expect(site.engines['.foo']).to.be.a('function')
+      //expect(site.engines['.foo'].render).to.be.undefined
     });
     
     describe('should register engine with leading dot', function() {
       var site = kerouac();
       site.engine('.foo', function(path, options, cb) {});
       
-      expect(site.engines['.foo'].renderFile).to.be.a('function')
-      expect(site.engines['.foo'].render).to.be.undefined
+      expect(site.engines['.foo']).to.be.a('function')
+      //expect(site.engines['.foo'].render).to.be.undefined
     });
     
   });
