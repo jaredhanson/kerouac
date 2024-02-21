@@ -28,6 +28,38 @@ describe('application', function() {
       }).to.throw(Error, 'callback function required');
     });
     
+  }); // #engine
+  
+  describe('#fm', function() {
+    
+    describe('should register parser', function() {
+      var site = kerouac();
+      site.fm(function(data) {
+        if (data == 'foo') { return { foo: 'bar' }; }
+        return undefined;
+      });
+      
+      var fm = site.fm('foo');
+      expect(fm).to.deep.equal({ foo: 'bar' });
+    });
+    
+    describe('should register multiple parsers', function() {
+      var site = kerouac();
+      site.fm(function(data) {
+        if (data == 'foo') { return { foo: 'bar' }; }
+        return undefined;
+      });
+      site.fm(function(data) {
+        if (data == 'beep') { return { beep: 'boop' }; }
+        return undefined;
+      });
+      
+      var fm = site.fm('foo');
+      expect(fm).to.deep.equal({ foo: 'bar' });
+      fm = site.fm('beep');
+      expect(fm).to.deep.equal({ beep: 'boop' });
+    });
+    
   });
   
   
