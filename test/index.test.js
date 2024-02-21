@@ -82,40 +82,6 @@ describe('kerouac', function() {
   
   describe('engine registration', function() {
     
-    /*
-    describe.skip('using a module', function() {
-      var site = kerouac();
-      var engine = {};
-      engine.renderFile = function(path, options, cb) {};
-      engine.render = function(path, options, cb) {};
-      
-      site.engine('foo', engine, { foo: 'bar' });
-    
-      it('should internally register foo engine', function() {
-        expect(site.engines['.foo'].renderFile).to.be.a('function')
-        expect(site.engines['.foo'].render).to.be.a('function')
-        expect(site.engines['.foo'].options['foo']).to.equal('bar')
-      });
-    });
-    */
-    
-    /*
-    describes.skip('using a module that exports __express', function() {
-      var site = kerouac();
-      var engine = {};
-      engine.__express = function(path, options, cb) {};
-      engine.render = function(path, options, cb) {};
-      
-      site.engine('foo', engine, { foo: 'bar' });
-    
-      it('should internally register foo engine', function() {
-        expect(site.engines['.foo'].renderFile).to.be.a('function')
-        expect(site.engines['.foo'].render).to.be.a('function')
-        expect(site.engines['.foo'].options['foo']).to.equal('bar')
-      });
-    });
-    */
-    
     describe.skip('using a non-engine module', function() {
       var site = kerouac();
       var engine = {};
