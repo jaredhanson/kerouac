@@ -80,21 +80,6 @@ describe('kerouac', function() {
     
   });
   
-  describe('engine registration', function() {
-    
-    describe.skip('using a non-engine module', function() {
-      var site = kerouac();
-      var engine = {};
-      
-      it('should not register foo engine', function() {
-        expect(function() {
-          site.engine('foo', engine, { foo: 'bar' });
-        }).to.throw(Error);
-      });
-    });
-    
-  });
-  
   describe('front matter parser registration', function() {
     var site = kerouac();
     site.fm(function(data) {

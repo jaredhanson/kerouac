@@ -21,6 +21,13 @@ describe('application', function() {
       expect(site.engines['.foo']).to.be.a('function')
     });
     
+    it('should throw error when called without function argument', function() {
+      expect(function() {
+        var site = kerouac();
+        site.engine('foo', 'invalid');
+      }).to.throw(Error, 'callback function required');
+    });
+    
   });
   
   
