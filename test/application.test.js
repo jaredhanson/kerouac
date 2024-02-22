@@ -32,7 +32,14 @@ describe('application', function() {
   
   describe('#fm', function() {
     
-    describe('should register parser', function() {
+    it('should parse YAML', function() {
+      var site = kerouac();
+      
+      var fm = site.fm('title: Hello');
+      expect(fm).to.deep.equal({ title: 'Hello' });
+    });
+    
+    it('should register parser', function() {
       var site = kerouac();
       site.fm(function(data) {
         if (data == 'foo') { return { foo: 'bar' }; }
@@ -43,29 +50,50 @@ describe('application', function() {
       expect(fm).to.deep.equal({ foo: 'bar' });
     });
     
-    describe('should register multiple parsers', function() {
+    it('should register multiple parsers', function() {
       var site = kerouac();
       site.fm(function(data) {
         if (data == 'foo') { return { foo: 'bar' }; }
         return undefined;
       });
       site.fm(function(data) {
-        if (data == 'beep') { return { beep: 'boop' }; }
+        if (data == 'baz') { return { beep: 'qux' }; }
         return undefined;
       });
       
       var fm = site.fm('foo');
       expect(fm).to.deep.equal({ foo: 'bar' });
-      fm = site.fm('beep');
-      expect(fm).to.deep.equal({ beep: 'boop' });
+      fm = site.fm('baz');
+      expect(fm).to.deep.equal({ beep: 'qux' });
     });
     
-  });
+    it('should not parse non-object data', function() {
+      var site = kerouac();
+      
+      var fm = site.fm('hello');
+      expect(fm).to.be.undefined;
+    });
+    
+    it('should not parse zero-length string', function() {
+      var site = kerouac();
+      
+      var fm = site.fm('');
+      expect(fm).to.be.undefined;
+    });
+    
+    it('should throw error when parsing invalid YAML', function() {
+      expect(function() {
+        var site = kerouac();
+        site.fm('{')
+      }).to.throw(Error, 'unexpected end');
+    });
+    
+  }); // #fm
   
   
   
   
-  describe('#fm', function() {
+  describe('#xfmx', function() {
     
     it('should parse YAML front matter', function() {
       var str = "layout: 'yaml'\n"
