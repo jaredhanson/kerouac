@@ -18,6 +18,8 @@ Express conventions.
 functions as argument to `app#engine()`.  Plugins that render lightweight markup
 should now be registered via `app#convert()`.
 - Removed "identity" engine used to render static, non-templated HTML files.
+- Removed support for JSON as a front matter format.  If support is needed, it
+can be added by applications using `app#fm()`.
 
 ## [0.2.0] - 2023-12-12
 
