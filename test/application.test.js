@@ -24,11 +24,53 @@ describe('application', function() {
     it('should throw error when called without function argument', function() {
       expect(function() {
         var site = kerouac();
-        site.engine('foo', 'invalid');
+        site.engine('foo');
       }).to.throw(Error, 'callback function required');
     });
     
   }); // #engine
+  
+  describe('#markup', function() {
+    
+    it('should register markup to html by default', function() {
+      var site = kerouac();
+      site.converter('foo', function(str, options) {});
+      expect(site.converters['.foo.html'].convert).to.be.a('function')
+    });
+    
+    it('should register markup with leading dot to html by default', function() {
+      var site = kerouac();
+      site.converter('.foo', function(str, options) {});
+      expect(site.converters['.foo.html'].convert).to.be.a('function')
+    });
+    
+    it('should register markup to type', function() {
+      var site = kerouac();
+      site.converter('foo', 'txt', function(str, options) {});
+      expect(site.converters['.foo.txt'].convert).to.be.a('function')
+    });
+    
+    it('should register markup with leading dot to type with leading dot', function() {
+      var site = kerouac();
+      site.converter('.foo', '.txt', function(str, options) {});
+      expect(site.converters['.foo.txt'].convert).to.be.a('function')
+    });
+    
+    it('should throw error when called without function argument', function() {
+      expect(function() {
+        var site = kerouac();
+        site.converter('foo');
+      }).to.throw(Error, 'callback function required');
+    });
+    
+    it('should throw error when called with output extension but without function argument', function() {
+      expect(function() {
+        var site = kerouac();
+        site.converter('foo', 'txt');
+      }).to.throw(Error, 'callback function required');
+    });
+    
+  }); // #convert
   
   describe('#fm', function() {
     
