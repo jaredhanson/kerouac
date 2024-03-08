@@ -11,12 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auto-`require()`'ing of engines expect the module to export a `.__express`
 function, rather than `.renderFile`, for compatibility with existing engines and
 Express conventions.
+- Renamed `app#convert()` to `app#markup()`.
 
 ### Removed
 
 - Removed ability to pass module object containing `renderFile` and `render`
 functions as argument to `app#engine()`.  Plugins that render lightweight markup
-should now be registered via `app#convert()`.
+should now be registered via `app#markup()`.
 - Removed "identity" engine used to render static, non-templated HTML files.
 - Removed support for JSON as a front matter format.  If support is needed, it
 can be added by applications using `app#fm()`.
