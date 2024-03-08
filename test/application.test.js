@@ -197,54 +197,79 @@ describe('application', function() {
   
   describe('#convert', function() {
     
-    it('should compile markdown', function(done) {
+    it('should compile markdown', function() {
       var app = kerouac();
       
+      var out = app.convert('Hello', 'md', function(){});
+      expect(out).to.equal('<p>Hello</p>\n');
+      
+      /*
       app.convert('Hello', 'md', function(err, out) {
         if (err) { return done(err); }
         expect(out).to.equal('<p>Hello</p>\n');
         done();
       });
+      */
     }); // should compile markdown
     
-    it('should compile markdown using dot-prefixed extension notation', function(done) {
+    it('should compile markdown using dot-prefixed extension notation', function() {
       var app = kerouac();
       
+      var out = app.convert('Hello', '.md', function(){});
+      expect(out).to.equal('<p>Hello</p>\n');
+      
+      /*
       app.convert('Hello', '.md', function(err, out) {
         if (err) { return done(err); }
         expect(out).to.equal('<p>Hello</p>\n');
         done();
       });
+      */
     }); // should compile markdown using dot-prefixed extension notation
     
-    it('should compile markdown to text', function(done) {
+    it('should compile markdown to text', function() {
       var app = kerouac();
       
+      var out = app.convert('Hello', 'md', 'txt', function(){});
+      expect(out).to.equal('Hello\n');
+      
+      /*
       app.convert('Hello', 'md', 'txt', function(err, out) {
         if (err) { return done(err); }
         expect(out).to.equal('Hello\n');
         done();
       });
+      */
     }); // should compile markdown
     
-    it('should compile markdown to text using dot-prefixed extension notation', function(done) {
+    it('should compile markdown to text using dot-prefixed extension notation', function() {
       var app = kerouac();
       
+      var out = app.convert('Hello', '.md', '.txt', function(){});
+      expect(out).to.equal('Hello\n');
+      
+      /*
       app.convert('Hello', '.md', '.txt', function(err, out) {
         if (err) { return done(err); }
         expect(out).to.equal('Hello\n');
         done();
       });
+      */
     }); // should compile markdown using dot-prefixed extension notation
     
-    it('should compile markdown to excerpt text', function(done) {
+    it('should compile markdown to excerpt text', function() {
       var app = kerouac();
       
+      var out = app.convert('Beep.\n\nBeep boop.', 'md', 'txt', { excerpt: true });
+      expect(out).to.equal('Beep.\n');
+      
+      /*
       app.convert('Beep.\n\nBeep boop.', 'md', 'txt', { excerpt: true }, function(err, out) {
         if (err) { return done(err); }
         expect(out).to.equal('Beep.\n');
         done();
       });
+      */
     }); // should compile markdown
     
   }); // #convert
