@@ -1,7 +1,7 @@
-var convert = require('../../../lib/converters/md/txt')
+var convert = require('../../../lib/markup/md/txt')
 
 
-describe('converters/md/txt', function() {
+describe('markup/md/txt', function() {
   
   it('should convert paragraph to text', function(done) {
     convert('Beep.', function(err, txt) {
