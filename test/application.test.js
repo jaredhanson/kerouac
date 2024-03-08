@@ -70,7 +70,7 @@ describe('application', function() {
       }).to.throw(Error, 'callback function required');
     });
     
-  }); // #convert
+  }); // #markup
   
   describe('#fm', function() {
     
