@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 function, rather than `.renderFile`, for compatibility with existing engines and
 Express conventions.
 - Renamed `app#convert()` to `app#markup()`.
+- `app#convert` is now a synchronous function, returning a string rather than
+yielding an error and string to a callback function.
 
 ### Removed
 
