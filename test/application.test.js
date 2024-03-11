@@ -200,7 +200,7 @@ describe('application', function() {
     it('should compile markdown', function() {
       var app = kerouac();
       
-      var out = app.convert('Hello', 'md', function(){});
+      var out = app.convert('Hello', 'md');
       expect(out).to.equal('<p>Hello</p>\n');
       
       /*
@@ -215,7 +215,7 @@ describe('application', function() {
     it('should compile markdown using dot-prefixed extension notation', function() {
       var app = kerouac();
       
-      var out = app.convert('Hello', '.md', function(){});
+      var out = app.convert('Hello', '.md');
       expect(out).to.equal('<p>Hello</p>\n');
       
       /*
@@ -230,7 +230,7 @@ describe('application', function() {
     it('should compile markdown to text', function() {
       var app = kerouac();
       
-      var out = app.convert('Hello', 'md', 'txt', function(){});
+      var out = app.convert('Hello', 'md', 'txt');
       expect(out).to.equal('Hello\n');
       
       /*
@@ -245,7 +245,7 @@ describe('application', function() {
     it('should compile markdown to text using dot-prefixed extension notation', function() {
       var app = kerouac();
       
-      var out = app.convert('Hello', '.md', '.txt', function(){});
+      var out = app.convert('Hello', '.md', '.txt');
       expect(out).to.equal('Hello\n');
       
       /*
