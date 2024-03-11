@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2024-03-11
 ### Changed
 
 - Auto-`require()`'ing of engines expect the module to export a `.__express`
