@@ -197,71 +197,35 @@ describe('application', function() {
   
   describe('#convert', function() {
     
-    it('should convert markdown to HTML by default', function() {
+    it('should convert markdown to html by default', function() {
       var app = kerouac();
       var out = app.convert('Hello', 'md');
       expect(out).to.equal('<p>Hello</p>\n');
-    }); // should convert markdown to HTML by default
+    }); // should convert markdown to html by default
     
-    it('should compile markdown using dot-prefixed extension notation', function() {
+    it('should convert markdown with leading dot to html by default', function() {
       var app = kerouac();
-      
       var out = app.convert('Hello', '.md');
       expect(out).to.equal('<p>Hello</p>\n');
-      
-      /*
-      app.convert('Hello', '.md', function(err, out) {
-        if (err) { return done(err); }
-        expect(out).to.equal('<p>Hello</p>\n');
-        done();
-      });
-      */
     }); // should compile markdown using dot-prefixed extension notation
     
-    it('should compile markdown to text', function() {
+    it('should convert markdown to text', function() {
       var app = kerouac();
-      
       var out = app.convert('Hello', 'md', 'txt');
       expect(out).to.equal('Hello\n');
-      
-      /*
-      app.convert('Hello', 'md', 'txt', function(err, out) {
-        if (err) { return done(err); }
-        expect(out).to.equal('Hello\n');
-        done();
-      });
-      */
-    }); // should compile markdown
+    }); // should convert markdown to text
     
-    it('should compile markdown to text using dot-prefixed extension notation', function() {
+    it('should convert markdown with leading dot to text with leading dot', function() {
       var app = kerouac();
-      
       var out = app.convert('Hello', '.md', '.txt');
       expect(out).to.equal('Hello\n');
-      
-      /*
-      app.convert('Hello', '.md', '.txt', function(err, out) {
-        if (err) { return done(err); }
-        expect(out).to.equal('Hello\n');
-        done();
-      });
-      */
-    }); // should compile markdown using dot-prefixed extension notation
+    }); // should convert markdown with leading dot to text with leading dot
     
-    it('should compile markdown to excerpt text', function() {
+    it('should convert markdown to excerpted text', function() {
       var app = kerouac();
-      
       var out = app.convert('Beep.\n\nBeep boop.', 'md', 'txt', { excerpt: true });
       expect(out).to.equal('Beep.\n');
-      
-      /*
-      app.convert('Beep.\n\nBeep boop.', 'md', 'txt', { excerpt: true }, function(err, out) {
-        if (err) { return done(err); }
-        expect(out).to.equal('Beep.\n');
-        done();
-      });
-      */
-    }); // should compile markdown
+    }); // should convert markdown to excerpted text
     
   }); // #convert
   
