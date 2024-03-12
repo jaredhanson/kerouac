@@ -227,6 +227,20 @@ describe('application', function() {
       expect(out).to.equal('Beep.\n');
     }); // should convert markdown to excerpted text
     
+    it('should throw error when markup is unsupported', function() {
+      expect(function() {
+        var site = kerouac();
+        app.convert('Hello', 'foo');
+      }).to.throw(Error, 'No markup available to convert ".foo" to ".html"');
+    });
+    
+    it('should throw error when markup to type is unsupported', function() {
+      expect(function() {
+        var site = kerouac();
+        app.convert('Hello', 'foo', 'bar');
+      }).to.throw(Error, 'No markup available to convert ".foo" to ".bar"');
+    });
+    
   }); // #convert
   
 }); // application
