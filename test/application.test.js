@@ -203,6 +203,12 @@ describe('application', function() {
       expect(out).to.equal('<p>Hello</p>\n');
     }); // should convert markdown to html by default
     
+    it('should convert markdown using github flavored markdown', function() {
+      var app = kerouac();
+      var out = app.convert('GFM is a does not ~~not~~ support strikethroughs.', 'md');
+      expect(out).to.equal('<p>GFM is a does not <del>not</del> support strikethroughs.</p>\n');
+    }); // should convert markdown using github flavored markdow
+    
     it('should convert markdown with leading dot to html by default', function() {
       var app = kerouac();
       var out = app.convert('Hello', '.md');
