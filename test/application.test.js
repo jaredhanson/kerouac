@@ -197,20 +197,11 @@ describe('application', function() {
   
   describe('#convert', function() {
     
-    it('should compile markdown', function() {
+    it('should convert markdown to HTML by default', function() {
       var app = kerouac();
-      
       var out = app.convert('Hello', 'md');
       expect(out).to.equal('<p>Hello</p>\n');
-      
-      /*
-      app.convert('Hello', 'md', function(err, out) {
-        if (err) { return done(err); }
-        expect(out).to.equal('<p>Hello</p>\n');
-        done();
-      });
-      */
-    }); // should compile markdown
+    }); // should convert markdown to HTML by default
     
     it('should compile markdown using dot-prefixed extension notation', function() {
       var app = kerouac();
