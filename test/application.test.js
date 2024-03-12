@@ -207,7 +207,13 @@ describe('application', function() {
       var app = kerouac();
       var out = app.convert('GFM is a does not ~~not~~ support strikethroughs.', 'md');
       expect(out).to.equal('<p>GFM is a does not <del>not</del> support strikethroughs.</p>\n');
-    }); // should convert markdown using github flavored markdow
+    }); // should convert markdown using github flavored markdown
+    
+    it('should convert markdown with highlighted code blocks', function() {
+      var app = kerouac();
+      var out = app.convert('```js\nvar x = 1;\n```', 'md');
+      expect(out).to.equal('<pre><code class="js"><span class="keyword">var</span> x = <span class="number">1</span>;\n</code></pre>\n');
+    }); // should convert markdown with highlighted code blocks
     
     it('should convert markdown with leading dot to html by default', function() {
       var app = kerouac();
