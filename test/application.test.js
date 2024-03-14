@@ -35,25 +35,25 @@ describe('application', function() {
     it('should register markup to html by default', function() {
       var site = kerouac();
       site.markup('foo', function(str, options) {});
-      expect(site.converters['.foo.html'].convert).to.be.a('function')
+      expect(site.converters['.foo.html']).to.be.a('function')
     });
     
     it('should register markup with leading dot to html by default', function() {
       var site = kerouac();
       site.markup('.foo', function(str, options) {});
-      expect(site.converters['.foo.html'].convert).to.be.a('function')
+      expect(site.converters['.foo.html']).to.be.a('function')
     });
     
     it('should register markup to type', function() {
       var site = kerouac();
       site.markup('foo', 'txt', function(str, options) {});
-      expect(site.converters['.foo.txt'].convert).to.be.a('function')
+      expect(site.converters['.foo.txt']).to.be.a('function')
     });
     
     it('should register markup with leading dot to type with leading dot', function() {
       var site = kerouac();
       site.markup('.foo', '.txt', function(str, options) {});
-      expect(site.converters['.foo.txt'].convert).to.be.a('function')
+      expect(site.converters['.foo.txt']).to.be.a('function')
     });
     
     it('should throw error when called without function argument', function() {
