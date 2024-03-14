@@ -22,6 +22,8 @@ yielding an error and string to a callback function.
 functions as argument to `app#engine()`.  Plugins that render lightweight markup
 should now be registered via `app#markup()`.
 - Removed "identity" engine used to render static, non-templated HTML files.
+- Removed `options` argument to `app#markup()`.  If default options are needed,
+they can be bound via closure instead.
 - Removed support for JSON as a front matter format.  If support is needed, it
 can be added by applications using `app#fm()`.
 
