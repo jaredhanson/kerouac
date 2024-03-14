@@ -60,6 +60,35 @@ describe('Page extensions', function() {
       page.render('index', { name: 'Tobi' });
     }); // should render layout with locals and write page
     
+    it('should render layout with page locals and write page', function(done) {
+      var app = new function(){};
+      app.render = sinon.stub().yieldsAsync(null, '<p>Hello</p>');
+      
+      var page = new Page();
+      page.locals = { organization: 'Acme' };
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+        
+      page.write = sinon.spy();
+      page.end = function() {
+        expect(page.app.render.getCall(0).args[0]).to.equal('index');
+        expect(page.app.render.getCall(0).args[1]).to.deep.equal({
+          name: 'Tobi',
+          _locals: {
+            organization: 'Acme'
+          }
+        });
+        expect(page.write.getCall(0).args[0]).to.equal('<p>Hello</p>');
+        done();
+      };
+      page.next = function() {
+        done('Page#next should not be called');
+      };
+      
+      page.render('index', { name: 'Tobi' });
+    }); // should render layout with page locals and write page
+    
     it('should render layout and next with error', function(done) {
       var app = new function(){};
       app.render = sinon.stub().yieldsAsync(new Error('something went wrong'));
@@ -74,6 +103,7 @@ describe('Page extensions', function() {
         done('Page#end should not be called');
       };
       page.next = function(err) {
+        expect(page.app.render.getCall(0).args[0]).to.equal('index');
         expect(err).to.be.an.instanceOf(Error);
         expect(err.message).to.equal('something went wrong');
         done();
@@ -123,6 +153,30 @@ describe('Page extensions', function() {
       });
     }); // should render layout with locals and invoke callback
     
+    it('should render layout with page locals and invoke callback', function(done) {
+      var app = new function(){};
+      app.render = sinon.stub().yieldsAsync(null, '<p>Hello</p>');
+      
+      var page = new Page();
+      page.locals = { organization: 'Acme' };
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+      
+      page.render('user', { name: 'Tobi' }, function(err, str) {
+        if (err) { return done(err); }
+        expect(str).to.equal('<p>Hello</p>');
+        expect(page.app.render.getCall(0).args[0]).to.equal('user');
+        expect(page.app.render.getCall(0).args[1]).to.deep.equal({
+          name: 'Tobi',
+          _locals: {
+            organization: 'Acme'
+          }
+        });
+        done();
+      });
+    }); // should render layout with page locals and invoke callback
+    
     it('should render layout and invoke callback with error', function(done) {
       var app = new function(){};
       app.render = sinon.stub().yieldsAsync(new Error('something went wrong'));
@@ -135,6 +189,7 @@ describe('Page extensions', function() {
       page.render('index', function(err, str) {
         expect(err).to.be.an.instanceOf(Error);
         expect(err.message).to.equal('something went wrong');
+        expect(page.app.render.getCall(0).args[0]).to.equal('index');
         done();
       });
     }); // should render layout and invoke callback with error
