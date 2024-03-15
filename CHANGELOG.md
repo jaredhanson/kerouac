@@ -20,6 +20,7 @@ Express conventions.
 - Renamed `app#convert()` to `app#markup()`.
 - `app#convert` is now a synchronous function, returning a string rather than
 yielding an error and string to a callback function.
+- `page#compile` takes required `layout` as first argument, rather than third.
 - `page#compile` now invokes callback after rendering.  If content is needed
 without being inserted into a layout, call `page#convert`.
 
