@@ -33,7 +33,8 @@ they can be bound via closure instead.
 can be added by applications using `app#fm()`.
 
 ### Fixed
- - Options passed to `page#compile` are passed to `app#convert`.
+- Options passed to `page#compile` are passed to `app#convert`.
+- Options passed to `page#compile` are passed to `page#render`.
 
 ## [0.2.0] - 2023-12-12
 
