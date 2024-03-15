@@ -382,6 +382,37 @@ describe('Page extensions', function() {
   
   describe('#compile', function() {
     
+    it('should convert markup, render layout and write page', function(done) {
+      var app = new function(){};
+      app.convert = sinon.stub().returns('<p>Hello</p>');
+      app.render = sinon.stub().yieldsAsync(null, '<p>Hello</p>');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+        
+      page.write = sinon.spy();
+      page.end = function() {
+        expect(page.app.convert.getCall(0).args[0]).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[1]).to.equal('md');
+        expect(page.app.convert.getCall(0).args[2]).to.deep.equal({});
+        expect(page.app.render.getCall(0).args[0]).to.equal('index');
+        expect(page.app.render.getCall(0).args[1]).to.deep.equal({
+          content: '<p>Hello</p>',
+          _locals: undefined
+        });
+        expect(page.write.getCall(0).args[0]).to.equal('<p>Hello</p>');
+        done();
+      };
+      page.next = function() {
+        done('Page#next should not be called');
+      };
+      
+      page.compile('Hello', 'md', 'index');
+    }); // should convert markup, render layout and write page
+    
+    /*
     it('should convert markup and render', function(done) {
       var app = new function(){};
       app.convert = sinon.stub().returns('<p>Hello</p>');
@@ -404,6 +435,7 @@ describe('Page extensions', function() {
       
       page.compile('Hello', 'md', 'greet');
     }); // should convert markup and render
+    */
     
   }); // #compile
   

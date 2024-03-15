@@ -32,6 +32,9 @@ they can be bound via closure instead.
 - Removed support for JSON as a front matter format.  If support is needed, it
 can be added by applications using `app#fm()`.
 
+### Fixed
+ - Options passed to `page#compile` are passed to `app#convert`.
+
 ## [0.2.0] - 2023-12-12
 
 ## [0.1.3] - 2018-09-23
