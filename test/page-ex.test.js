@@ -221,7 +221,7 @@ describe('Page extensions', function() {
       };
       
       page.convert('Hello', 'md');
-    }); // should convert markup and write page
+    }); // should convert markup to html by default and write page
     
     it('should convert markup to html by default with options and write page', function(done) {
       var app = new function(){};
@@ -247,6 +247,136 @@ describe('Page extensions', function() {
       
       page.convert('Hello', 'md', { pendantic: true });
     }); // should convert markup to html by default with options and write page
+    
+    it('should convert markup to type and write page', function(done) {
+      var app = new function(){};
+      app.convert = sinon.stub().returns('Hello');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+        
+      page.write = sinon.spy();
+      page.end = function() {
+        expect(page.app.convert.getCall(0).args[0]).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[1]).to.equal('md');
+        expect(page.app.convert.getCall(0).args[2]).to.equal('txt');
+        expect(page.app.convert.getCall(0).args[3]).to.deep.equal({});
+        expect(page.write.getCall(0).args[0]).to.equal('Hello');
+        done();
+      };
+      page.next = function() {
+        done('Page#next should not be called');
+      };
+      
+      page.convert('Hello', 'md', 'txt');
+    }); // should convert markup to type and write page
+    
+    it('should convert markup to type with options and write page', function(done) {
+      var app = new function(){};
+      app.convert = sinon.stub().returns('Hello');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+        
+      page.write = sinon.spy();
+      page.end = function() {
+        expect(page.app.convert.getCall(0).args[0]).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[1]).to.equal('md');
+        expect(page.app.convert.getCall(0).args[2]).to.equal('txt');
+        expect(page.app.convert.getCall(0).args[3]).to.deep.equal({ pedantic: true });
+        expect(page.write.getCall(0).args[0]).to.equal('Hello');
+        done();
+      };
+      page.next = function() {
+        done('Page#next should not be called');
+      };
+      
+      page.convert('Hello', 'md', 'txt', { pedantic: true });
+    }); // should convert markup to type with options and write page
+    
+    it('should convert markup to html by default and invoke callback', function(done) {
+      var app = new function(){};
+      app.convert = sinon.stub().returns('<p>Hello</p>');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+      
+      page.convert('Hello', 'md', function(err, str) {
+        if (err) { return done(err); }
+        expect(str).to.equal('<p>Hello</p>');
+        expect(page.app.convert.getCall(0).args[0]).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[1]).to.equal('md');
+        expect(page.app.convert.getCall(0).args[2]).to.equal('html');
+        expect(page.app.convert.getCall(0).args[3]).to.deep.equal({});
+        done();
+      });
+    }); // should convert markup to html by default and invoke callback
+    
+    it('should convert markup to html by default with options and invoke callback', function(done) {
+      var app = new function(){};
+      app.convert = sinon.stub().returns('<p>Hello</p>');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+      
+      page.convert('Hello', 'md', { pedantic: true }, function(err, str) {
+        if (err) { return done(err); }
+        expect(str).to.equal('<p>Hello</p>');
+        expect(page.app.convert.getCall(0).args[0]).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[1]).to.equal('md');
+        expect(page.app.convert.getCall(0).args[2]).to.equal('html');
+        expect(page.app.convert.getCall(0).args[3]).to.deep.equal({ pedantic: true });
+        done();
+      });
+    }); // should convert markup to html by default with options and invoke callback
+    
+    it('should convert markup to type and invoke callback', function(done) {
+      var app = new function(){};
+      app.convert = sinon.stub().returns('Hello');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+      
+      page.convert('Hello', 'md', 'txt', function(err, str) {
+        if (err) { return done(err); }
+        expect(str).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[0]).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[1]).to.equal('md');
+        expect(page.app.convert.getCall(0).args[2]).to.equal('txt');
+        expect(page.app.convert.getCall(0).args[3]).to.deep.equal({});
+        done();
+      });
+    }); // should convert markup to type and invoke callback
+    
+    it('should convert markup to type with options and invoke callback', function(done) {
+      var app = new function(){};
+      app.convert = sinon.stub().returns('Hello');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+      
+      page.convert('Hello', 'md', 'txt', { pedantic: true }, function(err, str) {
+        if (err) { return done(err); }
+        expect(str).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[0]).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[1]).to.equal('md');
+        expect(page.app.convert.getCall(0).args[2]).to.equal('txt');
+        expect(page.app.convert.getCall(0).args[3]).to.deep.equal({ pedantic: true });
+        done();
+      });
+    }); // should convert markup to type with options and invoke callback
     
   }); // #convert
   
