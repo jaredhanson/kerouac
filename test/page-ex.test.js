@@ -199,6 +199,29 @@ describe('Page extensions', function() {
   
   describe('#compile', function() {
     
+    it('should convert markup and render', function(done) {
+      var app = new function(){};
+      app.convert = sinon.stub().returns('<p>Hello</p>');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+        
+      page.render = function(layout, options) {
+        expect(page.app.convert.getCall(0).args[0]).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[1]).to.equal('md');
+        expect(layout).to.equal('greet');
+        expect(options).to.deep.equal({ content: '<p>Hello</p>' });
+        done();
+      }
+      page.next = function() {
+        done('Page#next should not be called');
+      };
+      
+      page.compile('Hello', 'md', 'greet');
+    }); // should convert markup and render
+    
   }); // #compile
   
 });
