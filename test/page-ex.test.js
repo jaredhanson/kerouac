@@ -467,6 +467,33 @@ describe('Page extensions', function() {
       });
     }); // should convert markup, render layout and invoke callback
     
+    it('should convert markup, render layout and invoke callback with options', function(done) {
+      var app = new function(){};
+      app.convert = sinon.stub().returns('<p>Hello</p>');
+      app.render = sinon.stub().yieldsAsync(null, '<p>Hello</p>');
+      
+      var page = new Page();
+      setPrototypeOf(page, Object.create(pagex, {
+          app: { configurable: true, enumerable: true, writable: true, value: app }
+        }));
+      
+      page.compile('Hello', 'md', 'index', { name: 'Tobi', pedantic: true }, function(err, str) {
+        if (err) { return done(err); }
+        expect(str).to.equal('<p>Hello</p>');
+        expect(page.app.convert.getCall(0).args[0]).to.equal('Hello');
+        expect(page.app.convert.getCall(0).args[1]).to.equal('md');
+        expect(page.app.convert.getCall(0).args[2].pedantic).to.be.true;
+        expect(page.app.render.getCall(0).args[0]).to.equal('index');
+        expect(page.app.render.getCall(0).args[1]).to.deep.equal({
+          content: '<p>Hello</p>',
+          name: 'Tobi',
+          _locals: undefined,
+          pedantic: true
+        });
+        done();
+      });
+    }); // should convert markup, render layout and invoke callback with options
+    
   }); // #compile
   
 });
