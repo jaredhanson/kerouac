@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2024-03-18
+
 ### Added
 - Added `page#convert()` for writing a page after converting from lightweight
 markup.
