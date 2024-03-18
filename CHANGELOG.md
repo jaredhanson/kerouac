@@ -6,11 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.3.0] - 2024-03-11
-
 ### Added
 - Added `page#convert()` for writing a page after converting from lightweight
 markup.
+
+### Changed
+- `page#compile` takes required `layout` as first argument, rather than third.
+- `page#compile` now invokes callback after rendering.  If content is needed
+without being inserted into a layout, call `page#convert`.
+
+### Removed
+- Removed `options` argument to `app#markup()`.  If default options are needed,
+they can be bound via closure instead.
+
+### Fixed
+- Options passed to `page#compile` are passed to `app#convert`.
+- Options passed to `page#compile` are passed to `page#render`.
+
+## [0.3.0] - 2024-03-11
 
 ### Changed
 
@@ -20,9 +33,6 @@ Express conventions.
 - Renamed `app#convert()` to `app#markup()`.
 - `app#convert` is now a synchronous function, returning a string rather than
 yielding an error and string to a callback function.
-- `page#compile` takes required `layout` as first argument, rather than third.
-- `page#compile` now invokes callback after rendering.  If content is needed
-without being inserted into a layout, call `page#convert`.
 
 ### Removed
 
@@ -30,14 +40,8 @@ without being inserted into a layout, call `page#convert`.
 functions as argument to `app#engine()`.  Plugins that render lightweight markup
 should now be registered via `app#markup()`.
 - Removed "identity" engine used to render static, non-templated HTML files.
-- Removed `options` argument to `app#markup()`.  If default options are needed,
-they can be bound via closure instead.
 - Removed support for JSON as a front matter format.  If support is needed, it
 can be added by applications using `app#fm()`.
-
-### Fixed
-- Options passed to `page#compile` are passed to `app#convert`.
-- Options passed to `page#compile` are passed to `page#render`.
 
 ## [0.2.0] - 2023-12-12
 
