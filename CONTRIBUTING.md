@@ -24,6 +24,12 @@ $ git commit                # commit changes
 $ git push origin master
 ```
 
+## Development
+
+### Tests
+
+The test suite is located in the [`test/`](https://github.com/jaredhanson/kerouac/tree/master/test) directory.
+
 ## Contributing
 
 ### Tests
