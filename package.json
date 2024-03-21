@@ -42,10 +42,11 @@
     "mkdirp": "0.5.x",
     "path-to-regexp": "0.1.7",
     "setprototypeof": "1.x.x",
+    "sinon-chai": "^3.7.0",
     "utils-merge": "^1.0.1"
   },
   "devDependencies": {
-    "chai": "2.x.x",
+    "chai": "4.x.x",
     "chai-kerouac-middleware": "0.0.x",
     "ejs": "^3.1.6",
     "make-node": "0.3.x",
