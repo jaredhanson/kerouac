@@ -1,3 +1,5 @@
+# Contributing to `kerouac`
+
 ## Contributing
 
 ### Tests
