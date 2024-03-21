@@ -263,7 +263,7 @@ describe('application', function() {
       var app = kerouac();
       app.handle = sinon.spy(function(req) {
         req.end();
-      })
+      });
       
       var fooMapper = new events.EventEmitter();
       fooMapper.map = function() {
@@ -294,11 +294,45 @@ describe('application', function() {
       });
     }); // should generate pages from hash of paths to mappers
     
+    it('should generate pages from hash of paths to array of mappers', function(done) {
+      var app = kerouac();
+      app.handle = sinon.spy(function(req) {
+        req.end();
+      });
+      
+      var fooMapper = new events.EventEmitter();
+      fooMapper.map = function() {
+        this.request('/foo.html');
+        this.end();
+      };
+      var barMapper = new events.EventEmitter();
+      barMapper.map = function() {
+        this.request('/bar.html');
+        this.end();
+      };
+      var bazMapper = new events.EventEmitter();
+      bazMapper.map = function() {
+        this.request('/baz.html');
+        this.end();
+      };
+      
+      app.generate({
+        '/foo': [ fooMapper, barMapper ],
+        '/baz': bazMapper
+      }, function() {
+        expect(app.handle).to.have.callCount(3);
+        expect(app.handle.getCall(0).args[0].path).to.equal('/foo/foo.html');
+        expect(app.handle.getCall(1).args[0].path).to.equal('/foo/bar.html');
+        expect(app.handle.getCall(2).args[0].path).to.equal('/baz/baz.html');
+        done();
+      });
+    }); // should generate pages from hash of paths to array of mappers
+    
     it('should generate pages from array of mappers', function(done) {
       var app = kerouac();
       app.handle = sinon.spy(function(req) {
         req.end();
-      })
+      });
       
       var fooMapper = new events.EventEmitter();
       fooMapper.map = function() {
