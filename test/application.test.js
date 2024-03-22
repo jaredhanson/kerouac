@@ -259,6 +259,21 @@ describe('application', function() {
   
   describe('#generate', function() {
     
+    it('should generate pages from array of paths', function(done) {
+      var app = kerouac();
+      app.handle = sinon.spy(function(req) {
+        req.end();
+      });
+      
+      app.generate([ '/foo.html', '/bar.html', '/baz.html' ], function() {
+        expect(app.handle).to.have.callCount(3);
+        expect(app.handle.getCall(0).args[0].path).to.equal('/foo.html');
+        expect(app.handle.getCall(1).args[0].path).to.equal('/bar.html');
+        expect(app.handle.getCall(2).args[0].path).to.equal('/baz.html');
+        done();
+      });
+    }); // should generate pages from hash of paths to mappers
+    
     it('should generate pages from hash of paths to mappers', function(done) {
       var app = kerouac();
       app.handle = sinon.spy(function(req) {

@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Array of paths can be passed as argument to `app#generate`.
+
 ### Fixed
 - `app#generate` invokes callback after all pages have been generated.
 
