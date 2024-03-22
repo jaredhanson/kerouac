@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - `app#generate` invokes callback after all pages have been generated.
 
+### Changed
+- Routes added to the main app are automatically mapped when `app#generate` is
+called.
+
 ## [0.4.0] - 2024-03-18
 
 ### Added
