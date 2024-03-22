@@ -276,7 +276,38 @@ describe('application', function() {
         expect(app.handle.getCall(2).args[0].path).to.equal('/baz.html');
         done();
       });
-    }); // should generate pages from hash of paths to mappers
+    }); // should automatically generate pages from routes
+    
+    it('should automatically generate pages from app', function(done) {
+      var app = kerouac();
+      app.handle = sinon.spy(function(req) {
+        req.end();
+      });
+      
+      var pkg = function() {
+        return new kerouac.Router();
+      };
+      pkg.createMapper = function() {
+        var mapper = new events.EventEmitter();
+        mapper.map = function() {
+          this.request('/foo.html');
+          this.request('/bar.html');
+          this.request('/baz.html');
+          this.end();
+        };
+        return mapper;
+      };
+      
+      app.use(pkg);
+      
+      app.generate(function() {
+        expect(app.handle).to.have.callCount(3);
+        expect(app.handle.getCall(0).args[0].path).to.equal('/foo.html');
+        expect(app.handle.getCall(1).args[0].path).to.equal('/bar.html');
+        expect(app.handle.getCall(2).args[0].path).to.equal('/baz.html');
+        done();
+      });
+    }); // should automatically generate pages from app
     
     it('should generate pages from array of paths', function(done) {
       var app = kerouac();
