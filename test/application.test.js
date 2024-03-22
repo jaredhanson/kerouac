@@ -402,6 +402,54 @@ describe('application', function() {
       });
     }); // should automatically generate pages from routes and app
     
+    it('should not automatically generate pages from routes when paths are explicitly specified', function(done) {
+      var app = kerouac();
+      app.handle = sinon.spy(function(req) {
+        req.end();
+      });
+      
+      app.page('/foo.html', function(){});
+      app.page('/bar.html', function(){});
+      app.page('/baz.html', function(){});
+      
+      app.generate([ '/beep.html', '/boop.html' ], function() {
+        expect(app.handle).to.have.callCount(2);
+        expect(app.handle.getCall(0).args[0].path).to.equal('/beep.html');
+        expect(app.handle.getCall(1).args[0].path).to.equal('/boop.html');
+        done();
+      });
+    }); // should not automatically generate pages from routes when paths are explicitly specified
+    
+    it('should not automatically generate pages from app when paths are explicitly specified', function(done) {
+      var app = kerouac();
+      app.handle = sinon.spy(function(req) {
+        req.end();
+      });
+      
+      var pkg = function() {
+        return new kerouac.Router();
+      };
+      pkg.createMapper = function() {
+        var mapper = new events.EventEmitter();
+        mapper.map = function() {
+          this.request('/foo.html');
+          this.request('/bar.html');
+          this.request('/baz.html');
+          this.end();
+        };
+        return mapper;
+      };
+      
+      app.use(pkg);
+      
+      app.generate([ '/beep.html', '/boop.html' ], function() {
+        expect(app.handle).to.have.callCount(2);
+        expect(app.handle.getCall(0).args[0].path).to.equal('/beep.html');
+        expect(app.handle.getCall(1).args[0].path).to.equal('/boop.html');
+        done();
+      });
+    }); // should not automatically generate pages from app when paths are explicitly specified
+    
     it('should generate pages from array of paths', function(done) {
       var app = kerouac();
       app.handle = sinon.spy(function(req) {
