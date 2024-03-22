@@ -364,6 +364,44 @@ describe('application', function() {
       });
     }); // should automatically generate pages from multiple apps mounted under same path
     
+    it('should automatically generate pages from routes and app', function(done) {
+      var app = kerouac();
+      app.handle = sinon.spy(function(req) {
+        req.end();
+      });
+      
+      app.page('/foo.html', function(){});
+      app.page('/bar.html', function(){});
+      app.page('/baz.html', function(){});
+      
+      var pkg = function() {
+        return new kerouac.Router();
+      };
+      pkg.createMapper = function() {
+        var mapper = new events.EventEmitter();
+        mapper.map = function() {
+          this.request('/foo.html');
+          this.request('/bar.html');
+          this.request('/baz.html');
+          this.end();
+        };
+        return mapper;
+      };
+      
+      app.use('/foo', pkg);
+      
+      app.generate(function() {
+        expect(app.handle).to.have.callCount(6);
+        expect(app.handle.getCall(0).args[0].path).to.equal('/foo/foo.html');
+        expect(app.handle.getCall(1).args[0].path).to.equal('/foo/bar.html');
+        expect(app.handle.getCall(2).args[0].path).to.equal('/foo/baz.html');
+        expect(app.handle.getCall(3).args[0].path).to.equal('/foo.html');
+        expect(app.handle.getCall(4).args[0].path).to.equal('/bar.html');
+        expect(app.handle.getCall(5).args[0].path).to.equal('/baz.html');
+        done();
+      });
+    }); // should automatically generate pages from routes and app
+    
     it('should generate pages from array of paths', function(done) {
       var app = kerouac();
       app.handle = sinon.spy(function(req) {
