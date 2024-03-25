@@ -219,63 +219,50 @@ describe('application', function() {
     
   }); // #convert
   
-  describe.skip('#parse', function() {
+  describe('#parse', function() {
     
     it('should parse YAML', function() {
-      var site = kerouac();
+      var app = kerouac();
       
-      var fm = site.parse('title: Hello');
-      expect(fm).to.deep.equal({ title: 'Hello' });
-    });
+      var data = app.parse('title: Hello');
+      expect(data).to.deep.equal({ title: 'Hello' });
+    }); // should parse YAML
     
-    it('should register parser', function() {
-      var site = kerouac();
-      site.fm(function(data) {
-        if (data == 'foo') { return { foo: 'bar' }; }
-        return undefined;
-      });
+    it('should parse JSON', function() {
+      var app = kerouac();
+      app.fm(';;;', JSON.parse);
       
-      var fm = site.parse('foo');
-      expect(fm).to.deep.equal({ foo: 'bar' });
-    });
+      var data = app.parse('{ "title": "Hello" }', ';;;');
+      expect(data).to.deep.equal({ title: 'Hello' });
+    }); // should parse JSON
     
-    it.skip('should register multiple parsers', function() {
-      var site = kerouac();
-      site.fm(function(data) {
-        if (data == 'foo') { return { foo: 'bar' }; }
-        return undefined;
-      });
-      site.fm(function(data) {
-        if (data == 'baz') { return { beep: 'qux' }; }
-        return undefined;
-      });
+    it('should not parse empty string', function() {
+      var app = kerouac();
       
-      var fm = site.parse('foo');
-      expect(fm).to.deep.equal({ foo: 'bar' });
-      fm = site.parse('baz');
-      expect(fm).to.deep.equal({ beep: 'qux' });
-    });
-    
-    it('should not parse non-object data', function() {
-      var site = kerouac();
-      
-      var fm = site.parse('hello');
-      expect(fm).to.be.undefined;
-    });
-    
-    it('should not parse zero-length string', function() {
-      var site = kerouac();
-      
-      var fm = site.parse('');
-      expect(fm).to.be.undefined;
-    });
+      var data = app.parse('');
+      expect(data).to.be.undefined;
+    }); // should not parse empty string
     
     it('should throw error when parsing invalid YAML', function() {
       expect(function() {
-        var site = kerouac();
-        site.parse('{')
+        var app = kerouac();
+        app.parse('{');
       }).to.throw(Error, 'unexpected end');
-    });
+    }); // should throw error when parsing invalid YAML
+    
+    it('should throw error when parsing non-structured YAML', function() {
+      expect(function() {
+        var app = kerouac();
+        app.parse('hello');
+      }).to.throw(Error, 'Front matter must consist of fields and values');
+    }); // should throw error when parsing non-structured YAML
+    
+    it('should throw error when delimiter is not supported', function() {
+      expect(function() {
+        var site = kerouac();
+        var front = site.parse('{ "title": "Hello" }', 'xxx');
+      }).to.throw(Error, 'Failed to parse front matter with delimiter "xxx".');
+    }); // should throw error when delimiter is not supported
     
   }); // #parse
   
