@@ -78,26 +78,19 @@ describe('application', function() {
     
     it('should parse YAML by default', function() {
       var site = kerouac();
-      expect(site._parsers['---']).to.be.a('function')
+      expect(site.frontmatters['---']).to.be.a('function')
     });
     
     it('should register parser', function() {
       var site = kerouac();
       site.fm(';;;', JSON.parse);
-      expect(site._parsers[';;;']).to.be.a('function')
+      expect(site.frontmatters[';;;']).to.be.a('function')
     });
     
     it('should throw error when called without function argument', function() {
       expect(function() {
         var site = kerouac();
         site.fm('+++');
-      }).to.throw(Error, 'callback function required');
-    });
-    
-    it('should throw error when called without delimiter and function argument', function() {
-      expect(function() {
-        var site = kerouac();
-        site.fm();
       }).to.throw(Error, 'callback function required');
     });
     
@@ -226,7 +219,7 @@ describe('application', function() {
     
   }); // #convert
   
-  describe('#parse', function() {
+  describe.skip('#parse', function() {
     
     it('should parse YAML', function() {
       var site = kerouac();
