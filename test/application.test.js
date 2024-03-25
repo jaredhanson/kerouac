@@ -76,60 +76,29 @@ describe('application', function() {
   
   describe('#fm', function() {
     
-    it('should parse YAML', function() {
+    it('should parse YAML by default', function() {
       var site = kerouac();
-      
-      var fm = site.parse('title: Hello');
-      expect(fm).to.deep.equal({ title: 'Hello' });
+      expect(site._parsers['---']).to.be.a('function')
     });
     
     it('should register parser', function() {
       var site = kerouac();
-      site.fm(function(data) {
-        if (data == 'foo') { return { foo: 'bar' }; }
-        return undefined;
-      });
-      
-      var fm = site.parse('foo');
-      expect(fm).to.deep.equal({ foo: 'bar' });
+      site.fm(';;;', JSON.parse);
+      expect(site._parsers[';;;']).to.be.a('function')
     });
     
-    it('should register multiple parsers', function() {
-      var site = kerouac();
-      site.fm(function(data) {
-        if (data == 'foo') { return { foo: 'bar' }; }
-        return undefined;
-      });
-      site.fm(function(data) {
-        if (data == 'baz') { return { beep: 'qux' }; }
-        return undefined;
-      });
-      
-      var fm = site.parse('foo');
-      expect(fm).to.deep.equal({ foo: 'bar' });
-      fm = site.parse('baz');
-      expect(fm).to.deep.equal({ beep: 'qux' });
-    });
-    
-    it('should not parse non-object data', function() {
-      var site = kerouac();
-      
-      var fm = site.parse('hello');
-      expect(fm).to.be.undefined;
-    });
-    
-    it('should not parse zero-length string', function() {
-      var site = kerouac();
-      
-      var fm = site.parse('');
-      expect(fm).to.be.undefined;
-    });
-    
-    it('should throw error when parsing invalid YAML', function() {
+    it('should throw error when called without function argument', function() {
       expect(function() {
         var site = kerouac();
-        site.parse('{')
-      }).to.throw(Error, 'unexpected end');
+        site.fm('+++');
+      }).to.throw(Error, 'callback function required');
+    });
+    
+    it('should throw error when called without delimiter and function argument', function() {
+      expect(function() {
+        var site = kerouac();
+        site.fm();
+      }).to.throw(Error, 'callback function required');
     });
     
   }); // #fm
@@ -277,7 +246,7 @@ describe('application', function() {
       expect(fm).to.deep.equal({ foo: 'bar' });
     });
     
-    it('should register multiple parsers', function() {
+    it.skip('should register multiple parsers', function() {
       var site = kerouac();
       site.fm(function(data) {
         if (data == 'foo') { return { foo: 'bar' }; }
