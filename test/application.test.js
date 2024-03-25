@@ -79,7 +79,7 @@ describe('application', function() {
     it('should parse YAML', function() {
       var site = kerouac();
       
-      var fm = site.fm('title: Hello');
+      var fm = site.parse('title: Hello');
       expect(fm).to.deep.equal({ title: 'Hello' });
     });
     
@@ -90,7 +90,7 @@ describe('application', function() {
         return undefined;
       });
       
-      var fm = site.fm('foo');
+      var fm = site.parse('foo');
       expect(fm).to.deep.equal({ foo: 'bar' });
     });
     
@@ -105,30 +105,30 @@ describe('application', function() {
         return undefined;
       });
       
-      var fm = site.fm('foo');
+      var fm = site.parse('foo');
       expect(fm).to.deep.equal({ foo: 'bar' });
-      fm = site.fm('baz');
+      fm = site.parse('baz');
       expect(fm).to.deep.equal({ beep: 'qux' });
     });
     
     it('should not parse non-object data', function() {
       var site = kerouac();
       
-      var fm = site.fm('hello');
+      var fm = site.parse('hello');
       expect(fm).to.be.undefined;
     });
     
     it('should not parse zero-length string', function() {
       var site = kerouac();
       
-      var fm = site.fm('');
+      var fm = site.parse('');
       expect(fm).to.be.undefined;
     });
     
     it('should throw error when parsing invalid YAML', function() {
       expect(function() {
         var site = kerouac();
-        site.fm('{')
+        site.parse('{')
       }).to.throw(Error, 'unexpected end');
     });
     
