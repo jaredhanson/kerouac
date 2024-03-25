@@ -19,8 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Routes added to the main app via `app#page` are automatically mapped when
 `app#generate` is called.
 - `app#fm` is now used only to register front matter parsing functions, and
-takes an optional `delim` argument.  Front matter parsing has been removed
-in favor of `app#parse`.
+takes a `delim` argument.  Front matter parsing has been removed in favor of
+`app#parse`.
 
 ## [0.4.0] - 2024-03-18
 
