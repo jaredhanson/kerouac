@@ -34,7 +34,7 @@
     "dive": "^0.5.0",
     "diveSync": "0.3.x",
     "functionpool": "0.1.x",
-    "headmatter": "0.0.2",
+    "headmatter": "0.1.x",
     "highlight.js": "11.x.x",
     "js-yaml": "3.x.x",
     "marked": "^0.3.19",
