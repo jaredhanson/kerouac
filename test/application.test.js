@@ -207,14 +207,14 @@ describe('application', function() {
       expect(function() {
         var site = kerouac();
         app.convert('Hello', 'foo');
-      }).to.throw(Error, 'No markup available to convert ".foo" to ".html"');
+      }).to.throw(Error, 'Failed to convert markup from ".foo" to ".html"');
     });
     
     it('should throw error when markup to type is unsupported', function() {
       expect(function() {
         var site = kerouac();
         app.convert('Hello', 'foo', 'bar');
-      }).to.throw(Error, 'No markup available to convert ".foo" to ".bar"');
+      }).to.throw(Error, 'Failed to convert markup from ".foo" to ".bar"');
     });
     
   }); // #convert
