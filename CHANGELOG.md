@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `app#parse` function which is used to parse front matter.
 - Array of paths can be passed as argument to `app#generate`.
+- Support for [GFM Alerts](https://github.com/orgs/community/discussions/16925)
+via `marked-alert` extension.
 
 ### Fixed
 - `app#generate` invokes callback after all pages have been generated.
@@ -21,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `app#fm` is now used only to register front matter parsing functions, and
 takes a `delim` argument.  Front matter parsing has been removed in favor of
 `app#parse`.
+- Upgraded to `marked@13.x`.  `marked-highlight` and `marked-gfm-heading-id`
+extensions are both used to maintain same behavior as previous `marked@0.3.x`.
 
 ## [0.4.0] - 2024-03-18
 
